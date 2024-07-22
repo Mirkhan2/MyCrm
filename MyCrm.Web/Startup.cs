@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyCrm.Data;
+using MyCrm.IoC;
 
 namespace MyCrm.Web
 {
@@ -23,7 +26,32 @@ namespace MyCrm.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            #region Services
+            services.AddControllersWithViews();
+
+            #endregion
+
+            #region IoC
+            
+            RegisterServices(services);
+
+            #endregion
+
+            #region Dd Context
+            services.AddDbContext<CrmContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("MyCrmDbConnection"));
+            });
+            #endregion
+
+
+            #region
+
+
+            #endregion
+
+            #region
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,18 +67,25 @@ namespace MyCrm.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            //olgo bray roiting
+            app.UseEndpoints(endpoint =>
             {
-                endpoints.MapRazorPages();
+                endpoint.MapControllerRoute(
+                    name : "default",
+                    pattern: "{controller= Home}/{action=Index}/{Id}");
             });
+
         }
+        #region register service method
+
+        public static void RegisterServices(IServiceCollection services)
+        {
+            DependencyContainers.RegisterServices(services);
+        }
+        #endregion
     }
 }
