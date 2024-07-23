@@ -33,7 +33,10 @@
 
     <!-- Main Content -->
     <section class="content home">
-        @RenderBody()
+        @RenderSection("Block_Header",false)
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
     </section>
     <!-- Jquery Core Js -->
     <partial name="_FooterRefrences" />

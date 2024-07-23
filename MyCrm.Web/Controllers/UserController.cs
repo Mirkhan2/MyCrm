@@ -19,10 +19,16 @@ namespace MyCrm.Web.Controllers
 
         #endregion
 
-        public IActionResult Index()
+        #region User List
+
+        public async Task<IActionResult>  Index(FilterUserViewModel filter)
         {
-            return View();
+              return View();
         }
+
+        #endregion
+
+
 
         #region Add User
 
