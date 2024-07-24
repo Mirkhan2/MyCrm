@@ -22,6 +22,10 @@ namespace MyCrm.Domain.ViewModels.Paging
         public int TakeEntity { get; set; }
         public int SkipEntity { get; set; }
         public int HowManyShowPageafterAndBefore { get; set; }
+      public  BasePaging GetCurrentPaging()
+        {
+            return this;
+        }
 
     }
 }
