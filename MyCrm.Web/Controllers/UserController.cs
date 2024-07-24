@@ -20,10 +20,11 @@ namespace MyCrm.Web.Controllers
         #endregion
 
         #region User List
-
+        [HttpGet]
         public async Task<IActionResult>  Index(FilterUserViewModel filter)
         {
-              return View();
+            var result = _userService.FilterUSer(filter);
+              return View(result); 
         }
 
         #endregion

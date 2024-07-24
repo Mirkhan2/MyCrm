@@ -49,9 +49,9 @@ namespace MyCrm.Application.Services
             return AddMarketerResult.Success;
         }
 
-        public Task<FilterUserViewModel> FilterUSer(FilterUserViewModel filter)
+        public async  Task<FilterUserViewModel> FilterUSer(FilterUserViewModel filter)
         {
-            throw new NotImplementedException();
+            return await _userRepository.FilterUser(filter);
         }
     }
 }

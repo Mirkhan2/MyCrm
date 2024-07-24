@@ -10,7 +10,7 @@ namespace MyCrm.Domain.ViewModels.User
     public class FilterUserViewModel :BasePaging
     {
         public string FilterMobile { get; set; }
-        public string FilterName { get; set; }
+        public string FilterFirstName { get; set; }
         public string FilterLastName { get; set; }
         public List<Entities.Account.User> Users { get; set; }
    

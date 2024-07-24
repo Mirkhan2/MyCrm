@@ -8,6 +8,12 @@ namespace MyCrm.Domain.ViewModels.Paging
 {
     public class BasePaging
     {
+        public BasePaging()
+        {
+            TakeEntity = 10;
+            PageId = 1;
+            HowManyShowPageafterAndBefore = 3;
+        }
         public int PageId { get; set; }
         public int PageCount { get; set; }
         public int AllEntitiesCount { get; set; }

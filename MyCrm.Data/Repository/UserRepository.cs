@@ -25,17 +25,17 @@ namespace MyCrm.Data.Repository
 
             #region filter
 
-            if (string.IsNullOrEmpty(filter.FilterLastName))
+            if (!string.IsNullOrEmpty(filter.FilterLastName))
             {
                 query = query.Where(a => EF.Functions.Like(a.LastName, $"%{filter.FilterLastName}"));
             }
 
-            if (string.IsNullOrEmpty(filter.FilterName))
+            if (!string.IsNullOrEmpty(filter.FilterFirstName))
             {
-                query = query.Where(a => EF.Functions.Like(a.FirstName, $"%{filter.FilterName}"));
+                query = query.Where(a => EF.Functions.Like(a.FirstName, $"%{filter.FilterFirstName}"));
             }
 
-            if (string.IsNullOrEmpty(filter.FilterMobile))
+            if (!string.IsNullOrEmpty(filter.FilterMobile))
             {
                 query = query.Where(a => EF.Functions.Like(a.MobilePhone, $"%{filter.FilterMobile}"));
             }
