@@ -1,0 +1,36 @@
+﻿@if (TempData["SuccessMessage"] != null)
+{
+	<script>
+		$(document).ready(function () {
+			ShowMessage('Payame Success', "@TempData["SuccessMessage"]", 'elaneuccess');
+		})
+
+	</script>
+}
+@if (TempData["WarningMessage"] != null)
+{
+	<script>
+		$(document).ready(function () {
+			ShowMessage('Payame Warning', "@TempData["WarninngMessage"]", 'Warning');
+		})
+
+	</script>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+	<script>
+		$(document).ready(function () {
+			ShowMessage('Payame Error', "@TempData["ErrorMessage"]", 'ErrorMessage');
+		})
+
+	</script>
+}
+@if (TempData["InfoMessage"] != null)
+{
+	<script>
+		$(document).ready(function () {
+			ShowMessage('Info Success', "@TempData["InfoMessage"]", 'InfoMessage');
+		})
+
+	</script>
+}

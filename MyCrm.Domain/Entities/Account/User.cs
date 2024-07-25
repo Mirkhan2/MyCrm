@@ -48,7 +48,7 @@ namespace MyCrm.Domain.Entities.Account
 
         public Gender Gender { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } =DateTime.Now;
 
 
         public bool IsDelete { get; set; }

@@ -1,23 +1,34 @@
 ﻿@model MyCrm.Domain.ViewModels.Paging.BasePaging
 
 
-<ul class="pagination pagination-primary m-t-20">
-    <li class="page-item"><a class="page-link" href="javascript:void(0);">قبلی</a></li>
+<div class="row mt-4">
+    <div class="col-12 pl-3">
+        <nav>
+            <ul class="pagination pagination-gutter pagination-primary pagination-sm no-bg">
 
-    @for (int i = Model.StartPage; i <= Model.EndPage; i++)
-    {
-        if (i == Model.PageId)
-        {
-            <li class="page-item active"><a class="page-link" onclick="fillPageId(@i)">@i</a></li>
-        }
-        else
-        {
-            <li class="page-item"><a class="page-link" onclick="fillPageId(@i)" >@i</a></li>
-        }
-    }
+                @if (Model.StartPage < Model.PageId)
+                {
+                    <li class="page-item page-indicator"><a class="page-link" onclick="fillPageId(@Model.PageId-1)"><i class="la la-angle-right"></i></a></li>
+                }
 
-    @*<li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-        <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-        <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>*@
-    <li class="page-item"><a class="page-link" href="javascript:void(0);">بعدی</a></li>
-</ul>
+                @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+                {
+                    if (i == Model.PageId)
+                    {
+                        <li class="page-item active"><a class="page-link" onclick="fillPageId(@i)">@i</a></li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" onclick="fillPageId(@i)">@i</a></li>
+                    }
+
+                }
+
+                @if (Model.EndPage > Model.PageId)
+                {
+                    <li class="page-item page-indicator"><a class="page-link" onclick="fillPageId(@Model.PageId+1)"><i class="la la-angle-left"></i></a></li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

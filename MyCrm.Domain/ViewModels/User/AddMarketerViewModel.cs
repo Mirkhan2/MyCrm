@@ -54,7 +54,6 @@ namespace MyCrm.Domain.ViewModels.User
 
         public Education Education { get; set; }
 
-        public IFormFile ImageFile { get; set; }
     }
 
     public enum AddMarketerResult

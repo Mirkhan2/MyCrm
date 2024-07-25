@@ -85,6 +85,32 @@ namespace MyCrm.Data.Repository
             _context.Marketers.Update(marketer);
         }
 
-       
+        public async Task<User> GetUserDetailById(long userId)
+        {
+            return await _context.Users
+                .Include(a =>a.Marketer)
+                .Include(a => a.Customer)
+                .FirstOrDefaultAsync(a => a.UserId == userId);
+        }
+
+        public async Task<Marketer> GetMarketerById(long marketerid)
+        {
+           return await _context.Marketers.SingleOrDefaultAsync(a => a.UserId == marketerid);
+        }
+
+        public async Task AddCustomer(Customer customer)
+        {
+            _context.Cursomers.AddAsync(customer);
+        }
+
+        public async Task<Customer> GetCustomerbyId(long customerId)
+        {
+            return await _context.Cursomers.FirstOrDefaultAsync(a => a.UserId == customerId);
+        }
+
+        public async Task UpdateCustomer(Customer customer)
+        {
+             _context.Cursomers.Update(customer);
+        }
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,9 +47,10 @@ namespace MyCrm.Web
             #endregion
 
 
-            #region
+            #region Encoder
 
-
+            services.AddSingleton<HtmlEncoder>(
+                HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.All }));
             #endregion
 
             #region

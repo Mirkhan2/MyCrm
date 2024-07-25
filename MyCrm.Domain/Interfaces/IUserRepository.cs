@@ -15,9 +15,15 @@ namespace MyCrm.Domain.Interfaces
         Task UpdateUser(User user);
         Task<User> GetUserById(long userId);
         Task SaveChangeAsync();
-
-
+        Task<User> GetUserDetailById(long userId);
+        Task<Marketer> GetMarketerById(long marketerid);
         Task AddMarketer(Marketer marketer);
         Task UpdateMarketer(Marketer marketer);
+
+        Task AddCustomer (Customer customer);
+        Task<Customer> GetCustomerbyId(long customerId);
+
+        Task UpdateCustomer(Customer customer);
+
     }
 }
