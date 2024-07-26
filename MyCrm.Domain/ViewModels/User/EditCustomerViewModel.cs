@@ -4,15 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyCrm.Domain.Entities.Orders;
 
-namespace MyCrm.Domain.Entities.Account
+namespace MyCrm.Domain.ViewModels.User
 {
-
-    public class User
+    public class EditCustomerViewModel
     {
-        [Key]
-        public long UserId { get; set; }
+        public long Id { get; set; }
+
 
         [Display(Name = "نام کاربری")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
@@ -47,30 +45,22 @@ namespace MyCrm.Domain.Entities.Account
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
         public string IntroduceName { get; set; }
 
-        public Gender Gender { get; set; }
-
-        public DateTime CreateDate { get; set; } =DateTime.Now;
 
 
-        public bool IsDelete { get; set; }
+        [Display(Name = "شغل")]
+        [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
+        public string Job { get; set; }
 
-        #region Relations
 
-        public Marketer Marketer { get; set; }
-        public Customer Customer { get; set; }
-        public ICollection<OrderSelectedMarketer> OrderSelectedMarketers { get; set; }
-
-        #endregion
+        [Display(Name = "نام شرکت")]
+        [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
+        public string CompanyName { get; set; }
 
     }
-
-    public enum Gender
+    public enum EditCustomerResult
     {
-        [Display(Name = "عمومی")]
-        General,
-        [Display(Name = "مرد")]
-        Male,
-        [Display(Name = "زن")]
-        Female,
+        Success,
+        Fail
     }
+
 }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyCrm.Domain.Entities.Orders;
 
 namespace MyCrm.Domain.Entities.Account
 {
@@ -25,13 +26,14 @@ namespace MyCrm.Domain.Entities.Account
             public string IrCode { get; set; }
 
             public Education Education { get; set; }
+        public bool IsDelete { get; set; }
+        #region Relations
 
-            #region Relations
+        public User User { get; set; }
+        public ICollection<OrderSelectedMarketer> OrderSelectedMarketers { get; set; }
 
-            public User User { get; set; }
-
-            #endregion
-        }
+        #endregion
+    }
 
         public enum Education
         {

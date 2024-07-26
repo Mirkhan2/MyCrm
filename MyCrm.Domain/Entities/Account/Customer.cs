@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyCrm.Domain.Entities.Orders;
 
 namespace MyCrm.Domain.Entities.Account
 {
@@ -22,11 +23,12 @@ namespace MyCrm.Domain.Entities.Account
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
         public bool  IsDelete { get; set; }
         public string CompanyName { get; set; }
-
+     
 
         #region Relations
 
         public User User { get; set; }
+        public ICollection<Order> OrderCollection { get; set; }
 
         #endregion
     }

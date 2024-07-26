@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCrm.Web", "MyCrm.Web\MyCrm.Web.csproj", "{188B7C8D-2D00-4F30-AD8D-57E8DA44A37A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyCrm.Web", "MyCrm.Web\MyCrm.Web.csproj", "{188B7C8D-2D00-4F30-AD8D-57E8DA44A37A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{FA1C8606-A61F-4FB6-B6B1-75993E5042D5}"
 EndProject
@@ -15,13 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info.IoC", "Info.IoC", "{C3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{82B87801-46DD-4A3B-83EE-CF3F543F3C4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCrm.Application", "MyCrm.Application\MyCrm.Application.csproj", "{4417C721-D555-4CBC-B021-90301BFE4444}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyCrm.Application", "MyCrm.Application\MyCrm.Application.csproj", "{4417C721-D555-4CBC-B021-90301BFE4444}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCrm.Domain", "MyCrm.Domain\MyCrm.Domain.csproj", "{C074DEB5-232B-4D73-9AEC-FA884438DCB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyCrm.Domain", "MyCrm.Domain\MyCrm.Domain.csproj", "{C074DEB5-232B-4D73-9AEC-FA884438DCB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCrm.Data", "MyCrm.Data\MyCrm.Data.csproj", "{D2AE0196-ABA7-4EE7-A2F4-60F9B962E4CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyCrm.Data", "MyCrm.Data\MyCrm.Data.csproj", "{D2AE0196-ABA7-4EE7-A2F4-60F9B962E4CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCrm.IoC", "MyCrm.IoC\MyCrm.IoC.csproj", "{105F4041-714C-4002-867A-DB904CAD3C3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyCrm.IoC", "MyCrm.IoC\MyCrm.IoC.csproj", "{105F4041-714C-4002-867A-DB904CAD3C3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

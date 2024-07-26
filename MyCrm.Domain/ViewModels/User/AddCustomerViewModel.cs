@@ -11,8 +11,6 @@ namespace MyCrm.Domain.ViewModels.User
     public class AddCustomerViewModel
     {
 
-
-
         [Display(Name = "نام کاربری")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
         public string UserName { get; set; }
@@ -64,4 +62,4 @@ namespace MyCrm.Domain.ViewModels.User
             Fail
         }
     }
-}
+

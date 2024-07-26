@@ -23,8 +23,6 @@ namespace MyCrm.Application.Services
             _userRepository = userRepository;
         }
 
-      
-
         public async Task<AddMarketerResult> AddMarketer(AddMarketerViewModel marketer, IFormFile imageProfile)
         {
 
@@ -164,10 +162,9 @@ namespace MyCrm.Application.Services
         }
 
 
-        public async  Task<AddCustomerResult> AddCustomer(AddCustomerViewModel customerViewModel , IFormFile imageProfile)
+        public async Task<AddCustomerResult> AddCustomer(AddCustomerViewModel customerViewModel, IFormFile imageProfile)
         {
 
-            // Upload Image
 
             var imageProfileName = "";
 
@@ -186,10 +183,8 @@ namespace MyCrm.Application.Services
                 Email = customerViewModel.Email,
                 MobilePhone = customerViewModel.MobilePhone,
                 IntroduceName = customerViewModel.IntroduceName,
-
-
-
             };
+
             if (!string.IsNullOrEmpty(imageProfileName))
             {
                 user.ImageName = imageProfileName;
@@ -204,11 +199,125 @@ namespace MyCrm.Application.Services
                 Job = customerViewModel.Job,
                 UserId = user.UserId
             };
+
             await _userRepository.AddCustomer(customer);
             await _userRepository.SaveChangeAsync();
 
+
+            return AddCustomerResult.Success;
         }
 
-  
+        public async Task<EditCustomerViewModel> FillEditCustomerViewModel(long userId)
+        {
+            var customer = await _userRepository.GetCustomerbyId(userId);
+
+            if (customer == null)
+            {
+                return null;
+            }
+
+            var user = await _userRepository.GetUserById(userId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var result = new EditCustomerViewModel()
+            {
+                UserName = user.UserName,
+                LastName = user.LastName,
+                Email = user.Email,
+                MobilePhone = user.MobilePhone,
+                IntroduceName = user.IntroduceName,
+                CompanyName = customer.CompanyName,
+                FirstName = user.FirstName,
+                Id = user.UserId,
+                ImageName = user.ImageName,
+                Job = customer.Job,
+            };
+            return result;
+
+        }
+
+        public async Task<EditCustomerResult> EditCustomer(EditCustomerViewModel customerViewModel, IFormFile imageProfile)
+        {
+            var customer = await _userRepository.GetCustomerbyId(customerViewModel.Id);
+
+            if (customer == null)
+            {
+                return EditCustomerResult.Fail;
+            }
+
+            var user = await _userRepository.GetUserById(customerViewModel.Id);
+
+            if (user == null)
+            {
+                return EditCustomerResult.Fail;
+            }
+
+
+            var imageProfileName = "";
+
+            if (imageProfile?.Length > 0)
+            {
+                imageProfileName = CodeGenerator.GenerateUniqCode() + Path.GetExtension(imageProfile.FileName);
+                imageProfile.AddImageToServer(imageProfileName, FilePath.UploadImageProfileServer, 280, 280);
+            }
+
+            customer.CompanyName = customerViewModel.CompanyName;
+            customer.Job = customerViewModel.Job;
+
+
+            user.LastName = customerViewModel.LastName;
+            user.FirstName = customerViewModel.FirstName;
+            user.Email = customerViewModel.Email;
+            user.IntroduceName = customerViewModel.IntroduceName;
+            user.MobilePhone = customerViewModel.MobilePhone;
+            user.UserName = customerViewModel.UserName;
+            user.ImageName = imageProfileName;
+            //tp=gender
+
+            await _userRepository.UpdateCustomer(customer);
+            await _userRepository.UpdateUser(user);
+
+            await _userRepository.SaveChangeAsync();
+
+            return EditCustomerResult.Success;
+        }
+
+        public async Task<bool> DeleteUser(long userId)
+        {
+            var user = await _userRepository.GetUserDetailById(userId);
+
+            if (user == null)
+            {
+                return false;
+            }
+            user.IsDelete = true;
+            await _userRepository.UpdateUser(user);
+            await _userRepository.SaveChangeAsync();
+            if (user.Marketer != null)
+            {
+            var marketer = await _userRepository.GetUserDetailById(userId);  
+                
+                marketer.IsDelete = true;
+           //    await _userRepository.UpdateMarketer(marketer);
+                await _userRepository.SaveChangeAsync();
+            }
+
+            if (user.Customer !=null)
+            {
+                var customer = await _userRepository.GetCustomerbyId(userId);
+                customer.IsDelete = false;
+                await _userRepository.UpdateCustomer(customer);
+
+            }
+ 
+            return true;
+
+        }
+
+        
     }
 }

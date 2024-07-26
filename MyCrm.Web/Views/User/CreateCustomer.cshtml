@@ -1,7 +1,83 @@
-﻿
+﻿@model MyCrm.Domain.ViewModels.User.AddCustomerViewModel
 @{
     ViewData["Title"] = "CreateCustomer";
 }
 
-<h1>CreateCustomer</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">افزودن مشتری</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form method="post" id="filter-search">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="UserName"> </label>
+                                <input asp-for="UserName" class="form-control">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="FirstName"></label>
+                                <input asp-for="FirstName" class="form-control">
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="MobilePhone"></label>
+                                <input asp-for="MobilePhone" class="form-control">
+                                <span asp-validation-for="MobilePhone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="IntroduceName"></label>
+                                <input asp-for="IntroduceName" class="form-control">
+                                <span asp-validation-for="IntroduceName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Job"></label>
+                                <input asp-for="Job" class="form-control">
+                                <span asp-validation-for="Job" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>نام شرکت</label>
+                                <input asp-for="CompanyName" class="form-control">
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="MainImage" class="btn btn-primary">
+                                    <span>تصویر پروفایل</span>
+                                </label>
+                                <input ImageInput="1" type="file" name="MainImage" id="MainImage" class="d-none" />
+                            </div>
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4">
+                                <img ImageFile="1" style="max-width: 300px" />
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">افزودن</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Vertical Layout -->
+@section Custom_js
+    {
+    <partial name="_JqueryValidators" />
+}
+
 

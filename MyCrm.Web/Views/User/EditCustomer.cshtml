@@ -1,19 +1,18 @@
-﻿@using MyCrm.Domain.Entities.Account
-@model MyCrm.Domain.ViewModels.User.AddMarketerViewModel
+﻿@using MyCrm.Application.Static_Tools;
+@model MyCrm.Domain.ViewModels.User.AddCustomerViewModel
 @{
-    ViewData["Title"] = "ثبت بازاریاب";
+    ViewData["Title"] = "Edit مشتری";
 }
-
 
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">فیلتر</h4>
+                <h4 class="card-title">Edit مشتری</h4>
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form method="post" id="filter-search">
+                    <form method="post" id="filter-search" enctype="multipart/form-data">
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -21,11 +20,7 @@
                                 <input asp-for="UserName" class="form-control">
                                 <span asp-validation-for="UserName" class="text-danger"></span>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label asp-for="Password"></label>
-                                <input asp-for="Password" class="form-control">
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
+                           
                             <div class="form-group col-md-6">
                                 <label asp-for="FirstName"></label>
                                 <input asp-for="FirstName" class="form-control">
@@ -47,45 +42,38 @@
                                 <span asp-validation-for="IntroduceName" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label asp-for="FieldStudy"></label>
-                                <input asp-for="FieldStudy" class="form-control">
-                                <span asp-validation-for="FieldStudy" class="text-danger"></span>
+                                <label asp-for="Job"></label>
+                                <input asp-for="Job" class="form-control">
+                                <span asp-validation-for="Job" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>سن</label>
-                                <input asp-for="Age" value="0" class="form-control">
-                                <span asp-validation-for="Age" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label asp-for="IrCode"></label>
-                                <input asp-for="IrCode" class="form-control">
-                                <span asp-validation-for="IrCode" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label asp-for="IntroduceName"></label>
-                                <input asp-for="IntroduceName" class="form-control">
-                                <span asp-validation-for="IntroduceName" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label asp-for="Education"></label>
-                                <select class="form-control" asp-for="Education" asp-items="@Html.GetEnumSelectList<Education>()"></select>
-                                <span asp-validation-for="Education" class="text-danger"></span>
+                                <label>نام شرکت</label>
+                                <input asp-for="CompanyName" class="form-control">
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
                             </div>
 
                             <div class="form-group col-md-12">
                                 <label for="MainImage" class="btn btn-primary">
                                     <span>تصویر پروفایل</span>
                                 </label>
-                                <input ImageInput="1" type="file" name="MainImage" id="MainImage" class="d-none" />
+                                <input ImageInput="1" type="file" name="imageProfile" id="MainImage" class="d-none" />
                             </div>
                             <div class="col-md-8"></div>
                             <div class="col-md-4">
-                                <img ImageFile="1" style="max-width: 300px" />
+                                @if (Model.ImageName != null)
+                                {
+                                    <img src="@FilePath.UploadImageProfile@Model.ImageName" ImageFile="1" style="max-width: 300px" />
+
+
+                                }
+                                else
+                                {
+                                    <img  ImageFile="@FilePath.UserProfileDefault" style="max-width : 300px" />
+                                }
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">افزودن</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
                     </form>
                 </div>
             </div>
@@ -97,3 +85,5 @@
     {
     <partial name="_JqueryValidators" />
 }
+
+

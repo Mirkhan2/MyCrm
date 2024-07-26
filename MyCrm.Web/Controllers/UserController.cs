@@ -37,17 +37,9 @@ namespace MyCrm.Web.Controllers
         #region Add User
 
         #region Create Customer
+
         [HttpGet]
         public async Task<IActionResult> CreateCustomer()
-        {
-            return View();
-        }
-
-        #endregion
-
-        #region CreateMarketer
-        [HttpGet]
-        public async Task<IActionResult> CreateMarketer()
         {
             return View();
         }
@@ -57,7 +49,7 @@ namespace MyCrm.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData[ErrorMessage] = "اطلاعات وارد شده معتبر نمی باشد";
+                TempData[Errormessage] = "اطلاعات وارد شده معتبر نمی باشد";
                 return View(customerViewModel);
             }
 
@@ -69,15 +61,51 @@ namespace MyCrm.Web.Controllers
                     TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("Index");
                 case AddCustomerResult.Fail:
-                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+                    TempData[Errormessage] = "عملیات با شکست مواجه شد";
                     break;
             }
             return View(customerViewModel);
         }
-        #endregion
 
         #endregion
 
+        #region CreateMarketer
+
+        public async Task<IActionResult> CreateMarketer()
+        {
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateMarketer(AddMarketerViewModel marketer, IFormFile imageProfile)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(marketer);
+            }
+
+            var res = await _userService.AddMarketer(marketer, imageProfile);
+
+            switch (res)
+            {
+                case AddMarketerResult.Success:
+                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    return RedirectToAction("Index");
+                case AddMarketerResult.Fail:
+                    TempData[Errormessage] = "عملیات با شکست مواجه شد";
+                    ModelState.AddModelError("UserName", "مشکلی در ثبت اطلاعات میباشد");
+                    break;
+            }
+
+            return View(marketer);
+        }
+
+        #endregion
+
+        #endregion
+        
         #region Edit User
 
         #region Edit Marketer
@@ -112,7 +140,7 @@ namespace MyCrm.Web.Controllers
                     TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("Index");
                 case EditMarketerResult.Fail:
-                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+                    TempData[Errormessage] = "عملیات با شکست مواجه شد";
                     break;
             }
 
@@ -122,6 +150,57 @@ namespace MyCrm.Web.Controllers
 
         #endregion
 
+        #region Edit Customer
+        public async Task<IActionResult> EditCustomer(long id)
+        {
+            var result = await _userService.FillEditCustomerViewModel(id);
+           return View(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditCustomer(EditCustomerViewModel customerViewModel , IFormFile imageProfile)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData[Errormessage] = "motabar gultig";
+                return View(customerViewModel);
+
+            }
+            var result = await _userService.EditCustomer(customerViewModel,imageProfile);  
+            switch (result)
+            {
+                case EditCustomerResult.Success:
+                    TempData[SuccessMessage] = "Success";
+                    return RedirectToAction("Index");
+                    case EditCustomerResult.Fail:
+                    TempData[Errormessage] = "Failer";
+                
+                    break;
+            }
+            return View(customerViewModel);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Delete User
+
+        public async Task<IActionResult> DeleteUser(long userId)
+        {
+            var result =  await _userService.DeleteUser(userId);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = "Sucess";
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                TempData[Errormessage] = " Error";
+                return RedirectToAction("Index");
+            }
+        }
         #endregion
     }
 

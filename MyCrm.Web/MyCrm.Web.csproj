@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\user\default\avatar.png" />
+    <None Include="wwwroot\images\user\profile\00a2bd50b9eb44578c9a22222138dcce.png" />
+    <None Include="wwwroot\images\user\profile\2786b16df64e41b38d670972a9e98637.png" />
+    <None Include="wwwroot\images\user\profile\52cddf57b3ed4adaa933aaf9f2bf4730.png" />
+    <None Include="wwwroot\images\user\profile\9b1ee4c701ee45318add3beb591caa74.png" />
+    <None Include="wwwroot\images\user\profile\c4272ebd46aa46efb8d40e0924ddc7bb.png" />
+    <None Include="wwwroot\images\user\profile\caa0c08e42b3439098dcb6d05e0f7eff.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

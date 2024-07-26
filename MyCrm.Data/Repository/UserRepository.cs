@@ -21,8 +21,13 @@ namespace MyCrm.Data.Repository
 
         public async Task<FilterUserViewModel> FilterUser (FilterUserViewModel filter)
         {
-            var query = _context.Users.AsQueryable();
-
+           
+            var query = _context.Users
+             .OrderByDescending(a => a.CreateDate)
+             .Include(a => a.Marketer)
+             .Include(a => a.Customer)
+             .Where(a => !a.IsDelete)
+             .AsQueryable();
             #region filter
 
             if (!string.IsNullOrEmpty(filter.FilterLastName))

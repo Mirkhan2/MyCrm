@@ -16,7 +16,7 @@ namespace MyCrm.Domain.Interfaces
         Task<User> GetUserById(long userId);
         Task SaveChangeAsync();
         Task<User> GetUserDetailById(long userId);
-        Task<Marketer> GetMarketerById(long marketerid);
+        Task<Marketer> GetMarketerById(long marketerId);
         Task AddMarketer(Marketer marketer);
         Task UpdateMarketer(Marketer marketer);
 
