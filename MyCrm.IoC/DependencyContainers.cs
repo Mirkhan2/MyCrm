@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using MyCrm.Application.Interface;
+using MyCrm.Application.Interfaces;
 using MyCrm.Application.Services;
 using MyCrm.Data.Repository;
 using MyCrm.Domain.Interfaces;
@@ -17,8 +18,11 @@ namespace MyCrm.IoC
         {
             service.AddTransient<IUserService, UserService>();
 
+            service.AddTransient<IOrderService, OrderService>();
+
 
             service.AddTransient<IUserRepository , UserRepository>();
+            service.AddTransient<IOrderRepository , OrderRepository>();
          
         }
     }

@@ -21,9 +21,10 @@ namespace MyCrm.Domain.Entities.Account
 
         [Display(Name = "نام شرکت")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-        public bool  IsDelete { get; set; }
         public string CompanyName { get; set; }
-     
+
+        public bool IsDelete { get; set; }
+
 
         #region Relations
 

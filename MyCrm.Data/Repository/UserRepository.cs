@@ -1,5 +1,4 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -110,7 +109,9 @@ namespace MyCrm.Data.Repository
 
         public async Task<Customer> GetCustomerbyId(long customerId)
         {
-            return await _context.Cursomers.FirstOrDefaultAsync(a => a.UserId == customerId);
+            return await _context.Cursomers
+                .Include(a => a.User)
+                .FirstOrDefaultAsync(a => a.UserId == customerId);
         }
 
         public async Task UpdateCustomer(Customer customer)

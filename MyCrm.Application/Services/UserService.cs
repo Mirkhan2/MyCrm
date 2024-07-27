@@ -318,6 +318,11 @@ namespace MyCrm.Application.Services
 
         }
 
-        
+        public async Task<Customer> GetCustomerById(long customerId)
+        {
+            return await _userRepository.GetCustomerbyId(customerId);
+        }
+
+       
     }
 }

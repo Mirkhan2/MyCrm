@@ -40,7 +40,7 @@ namespace MyCrm.Domain.Entities.Orders
 
 
         [Display(Name = "نوع سفارش")]
-        public OrderSelectedMarketer OrderType { get; set; }
+        public OrderType OrderType { get; set; }
 
         #endregion
 
@@ -52,13 +52,13 @@ namespace MyCrm.Domain.Entities.Orders
         #endregion
     }
 
-    //public enum OrderSelectedMarketer
-    //{
-    //    [Display(Name = "اعلامی")]
-    //    Declaration,
-    //    [Display(Name = "حضوری")]
-    //    Presence,
-    //    [Display(Name = "بازاریابی شده")]
-    //    Marketing
-    //}
+    public enum OrderType
+    {
+        [Display(Name = "اعلامی")]
+        Declaration,
+        [Display(Name = "حضوری")]
+        Presence,
+        [Display(Name = "بازاریابی شده")]
+        Marketing
+    }
 }

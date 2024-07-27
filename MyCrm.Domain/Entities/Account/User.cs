@@ -40,6 +40,7 @@ namespace MyCrm.Domain.Entities.Account
 
         [Display(Name = "شماره موبایل")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
+        [Required(ErrorMessage = "این فیلد اجباری است")]
         public string MobilePhone { get; set; }
 
 
@@ -49,10 +50,10 @@ namespace MyCrm.Domain.Entities.Account
 
         public Gender Gender { get; set; }
 
-        public DateTime CreateDate { get; set; } =DateTime.Now;
+        public DateTime CreateDate { get; set; } = DateTime.Now;
 
 
-        public bool IsDelete { get; set; }
+        public bool IsDelete { get; set; } = false;
 
         #region Relations
 

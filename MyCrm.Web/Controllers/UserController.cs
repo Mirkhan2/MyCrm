@@ -32,8 +32,6 @@ namespace MyCrm.Web.Controllers
 
         #endregion
 
-
-
         #region Add User
 
         #region Create Customer

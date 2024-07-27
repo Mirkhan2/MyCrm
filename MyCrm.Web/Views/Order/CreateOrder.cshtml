@@ -1,0 +1,73 @@
+﻿@using MyCrm.Application.Convertor
+@using MyCrm.Application.Extensions
+@using MyCrm.Domain.Entities.Account
+@model MyCrm.Domain.ViewModels.Orders.CreateOrderViewModel
+@{
+    ViewData["Title"] = "ساخت سفارش";
+    var customer = ViewBag.customer as Customer;
+}
+
+
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card text-white bg-primary">
+            <div class="card-header">
+                <h5 class="card-title text-white">اطلاعات مشتری</h5>
+            </div>
+            <div class="card-body mb-0">
+                <p class="card-text">نام مشتری : @customer.User.GetUserShowName()</p>
+                <p class="card-text">شغل مشتری : @customer.Job</p>
+                <p class="card-text">شرکت مشتری : @customer.CompanyName</p>
+                <p class="card-text">ایمیل : @customer.User.Email</p>
+                <p class="card-text">موبایل : @customer.User.MobilePhone</p>
+                <p class="card-text">تاریخ ثبت : @customer.User.CreateDate.ToShamsiDate()</p>
+            </div>
+            @*<div class="card-footer bg-transparent border-0 text-white">آخرین آپدیت 4 دقیقه پیش
+        </div>*@
+        </div>
+    </div>
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">ویرایش مشتری</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form method="post" id="filter-search" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="CustomerId"/>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Description"> </label>
+                                <input asp-for="Description" class="form-control">
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                           
+
+                            @*<div class="form-group col-md-12">
+                                <label for="MainImage" class="btn btn-primary">
+                                    <span>تصویر پروفایل</span>
+                                </label>
+                                <input ImageInput="1" type="file" name="imageProfile" id="MainImage" class="d-none"/>
+                            </div>
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4">
+                                @if (Model.ImageName != null)
+                                {
+                                    <img src="@FilePath.UploadImageProfile@Model.ImageName" ImageFile="1" style="max-width: 300px"/>
+                                }
+                                else
+                                {
+                                    <img src="@FilePath.UserProfileDefault" ImageFile="1" style="max-width: 300px"/>
+                                }
+                            </div>*@
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">ثبت</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
