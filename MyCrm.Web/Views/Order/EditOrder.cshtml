@@ -1,13 +1,14 @@
-﻿@using MyCrm.Application.Convertor
+﻿@using System.IO
+@using MyCrm.Application.Convertor
 @using MyCrm.Application.Extensions
+@using MyCrm.Application.Static_Tools
 @using MyCrm.Domain.Entities.Account
 @using MyCrm.Domain.Entities.Orders
-@model MyCrm.Domain.ViewModels.Orders.CreateOrderViewModel
+@model MyCrm.Domain.ViewModels.Orders.EditOrderViewModel
 @{
-    ViewData["Title"] = "ساخت سفارش";
+    ViewData["Title"] = "ویرایش سفارش";
     var customer = ViewBag.customer as Customer;
 }
-
 
 <div class="row">
     <div class="col-xl-4">
@@ -35,7 +36,8 @@
             <div class="card-body">
                 <div class="basic-form">
                     <form method="post" id="filter-search" enctype="multipart/form-data">
-                        <input type="hidden" asp-for="CustomerId" value="@customer.UserId" />
+                        <input type="hidden" asp-for="OrderId" />
+                        <input type="hidden" asp-for="CustomerId" />
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label asp-for="Title"> </label>
@@ -61,9 +63,16 @@
                                 </label>
                                 <input ImageInput="1" type="file" name="orderImage" id="MainImage" class="d-none" />
                             </div>
-                            <div class="col-md-8"></div>
-                            <div class="col-md-4">
-                                <img ImageFile="1" style="max-width: 300px" />
+                            <div class="col-md-7"></div>
+                            <div class="col-md-5">
+                                @if (!string.IsNullOrEmpty(Model.ImageName))
+                                {
+                                    <img src="@FilePath.OrderImagePath@Model.ImageName" ImageFile="1" style="max-width: 300px" />
+                                }
+                                else
+                                {
+                                    <img src="@FilePath.NoImagePath" ImageFile="1" style="max-width: 300px" />
+                                }
                             </div>
 
                         </div>

@@ -11,6 +11,10 @@ namespace MyCrm.Application.Interfaces
     public interface IOrderService
     {
         Task<CreateOrderResult> CreateOrder(CreateOrderViewModel orderViewModel, IFormFile imageName);
+        Task<FilterOrderViewModel> FilterOrder(FilterOrderViewModel filter);
+        Task<EditOrderViewModel> GetOrderForEdit(long orderId);
+        Task<EditOrderResult> EditOrder(EditOrderViewModel orderViewModel, IFormFile imageProfile);
+        Task<EditOrderViewModel> FillEditOrderViewModel(long orderId);
     }
 }
  

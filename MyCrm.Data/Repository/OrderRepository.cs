@@ -43,5 +43,14 @@ namespace MyCrm.Data.Repository
 
              _context.Orders.Update(order);
         }
+
+        public async Task<IQueryable<Order>> GetOrders()
+        {
+            //lazyloading*
+           return  _context.Orders
+                .Include(a => a.Customer)
+                .ThenInclude(a => a.User)
+                .AsQueryable();
+        }
     }
 }

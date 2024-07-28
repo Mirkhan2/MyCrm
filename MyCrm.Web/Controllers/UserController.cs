@@ -9,7 +9,6 @@ namespace MyCrm.Web.Controllers
 {
     public class UserController : BaseController
     {
-
         #region ctor
 
         private readonly IUserService _userService;
@@ -22,10 +21,10 @@ namespace MyCrm.Web.Controllers
         #endregion
 
         #region User List
+
         [HttpGet]
         public async Task<IActionResult> Index(FilterUserViewModel filter)
         {
-
             var result = await _userService.FilterUser(filter);
             return View(result);
         }
@@ -103,24 +102,24 @@ namespace MyCrm.Web.Controllers
         #endregion
 
         #endregion
-        
+
         #region Edit User
 
         #region Edit Marketer
+
         [HttpGet]
         public async Task<IActionResult> EditMarketer(long id)
         {
             var result = await _userService.GetMarketerForEdit(id);
 
-            ViewBag.userId = id;
-
-
             if (result == null)
             {
                 return NotFound();
             }
+
             return View(result);
         }
+
         [HttpPost]
         public async Task<IActionResult> EditMarketer(EditMarketerViewModel marketer, IFormFile imageProfile)
         {
@@ -145,35 +144,37 @@ namespace MyCrm.Web.Controllers
             return View(marketer);
         }
 
-
         #endregion
 
         #region Edit Customer
+
         public async Task<IActionResult> EditCustomer(long id)
         {
             var result = await _userService.FillEditCustomerViewModel(id);
-           return View(result);
+            return View(result);
         }
+
         [HttpPost]
-        public async Task<IActionResult> EditCustomer(EditCustomerViewModel customerViewModel , IFormFile imageProfile)
+        public async Task<IActionResult> EditCustomer(EditCustomerViewModel customerViewModel, IFormFile imageProfile)
         {
             if (!ModelState.IsValid)
             {
-                TempData[Errormessage] = "motabar gultig";
+                TempData[Errormessage] = "اطلاعات وارد شده معتبر نمی باشد";
                 return View(customerViewModel);
-
             }
-            var result = await _userService.EditCustomer(customerViewModel,imageProfile);  
+
+            var result = await _userService.EditCustomer(customerViewModel, imageProfile);
+
             switch (result)
             {
                 case EditCustomerResult.Success:
-                    TempData[SuccessMessage] = "Success";
+                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("Index");
-                    case EditCustomerResult.Fail:
-                    TempData[Errormessage] = "Failer";
-                
+                case EditCustomerResult.Fail:
+                    TempData[Errormessage] = "عملیات با شکست مواجه شد";
                     break;
             }
+
             return View(customerViewModel);
         }
 
@@ -185,20 +186,20 @@ namespace MyCrm.Web.Controllers
 
         public async Task<IActionResult> DeleteUser(long userId)
         {
-            var result =  await _userService.DeleteUser(userId);
+            var result = await _userService.DeleteUser(userId);
 
             if (result)
             {
-                TempData[SuccessMessage] = "Sucess";
+                TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                 return RedirectToAction("Index");
-
             }
             else
             {
-                TempData[Errormessage] = " Error";
+                TempData[Errormessage] = "عملیات با شکست مواجه شد";
                 return RedirectToAction("Index");
             }
         }
+
         #endregion
     }
 

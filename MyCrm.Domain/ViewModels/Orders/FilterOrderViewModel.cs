@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyCrm.Domain.Entities.Orders;
 using MyCrm.Domain.ViewModels.Paging;
 
-namespace MyCrm.Domain.ViewModels.User
+namespace MyCrm.Domain.ViewModels.Orders
 {
-    public class FilterUserViewModel : BasePaging
+    public class FilterOrderViewModel : BasePaging
     {
-        public string FilterMobile { get; set; }
-        public string FilterFirstName { get; set; }
-        public string FilterLastName { get; set; }
-        public List<Entities.Account.User> Users { get; set; }
+        public List<Order> Orders { get; set; }
+        public string FilterOrderName { get; set; }
+        public string FilterCustomerName { get; set; }
 
-        public FilterUserViewModel SetEntity(List<Entities.Account.User> users)
+        public FilterOrderViewModel SetEntity(List<Order> orders)
         {
-            this.Users = users;
+            this.Orders = orders;
             return this;
 
         }
-        public FilterUserViewModel SetPaging(BasePaging paging)
+        public FilterOrderViewModel SetPaging(BasePaging paging)
         {
             this.PageId = paging.PageId;
             this.AllEntitiesCount = paging.AllEntitiesCount;

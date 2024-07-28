@@ -9,6 +9,10 @@ namespace MyCrm.Application.Static_Tools
 {
     public static class FilePath
     {
+        #region common
+        public static readonly string NoImagePath = "/images/common/no-image-jpg";
+
+        #endregion
         #region User
 
         public static readonly string UserProfileDefault = "/images/user/default/avatar";

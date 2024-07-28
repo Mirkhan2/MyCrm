@@ -15,7 +15,10 @@ namespace MyCrm.Domain.Interfaces
         Task SaveChange();
 
         Task UpdateOrder(Order order);
+        Task<IQueryable<Order>> GetOrders();
 
         //Task DeleteOrder(long orderId);
+
+
     }
 }

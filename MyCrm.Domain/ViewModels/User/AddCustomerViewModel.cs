@@ -37,6 +37,7 @@ namespace MyCrm.Domain.ViewModels.User
 
         [Display(Name = "شماره موبایل")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
+        [Required(ErrorMessage = "این فیلد اجباری است")]
         public string MobilePhone { get; set; }
 
 
