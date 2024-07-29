@@ -15,6 +15,8 @@ namespace MyCrm.Application.Interfaces
         Task<EditOrderViewModel> GetOrderForEdit(long orderId);
         Task<EditOrderResult> EditOrder(EditOrderViewModel orderViewModel, IFormFile imageProfile);
         Task<EditOrderViewModel> FillEditOrderViewModel(long orderId);
+        Task<bool> DeleteOrder(long orderId);
+        Task<AddOrderSelectMarketerResult> AddOrderSelectMarketer(OrderSelectMarketerViewModel marketerViewModel, long userId);
     }
 }
  

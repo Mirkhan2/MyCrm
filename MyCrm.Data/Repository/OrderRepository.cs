@@ -52,5 +52,32 @@ namespace MyCrm.Data.Repository
                 .ThenInclude(a => a.User)
                 .AsQueryable();
         }
+
+        public Task DeleteOrder(long orderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task AddOrderSelectmarketer(OrderSelectedMarketer orderSelectedMarketer)
+        {
+           await _context.OrderSelectedMarketers.AddAsync(orderSelectedMarketer);
+
+        }
+
+        public Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarkets()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public async Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarkets()
+        //{
+        //    return await _context.OrderSelectedMarketers.AsQueryable();
+        //}
+
+        //public await Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarkets()
+        //{
+        //    return _context.OrderSelectedMarketers.AsQueryable();
+        //}
+        //public async Task UpdateOrder
     }
 }

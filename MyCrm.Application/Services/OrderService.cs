@@ -62,13 +62,16 @@ namespace MyCrm.Application.Services
             return CreateOrderResult.Success;
         }
 
-   
+
 
         public async Task<FilterOrderViewModel> FilterOrder(FilterOrderViewModel filter)
         {
             var query = await _orderRepository.GetOrders();
 
             #region filter
+
+            query = query.Where(a => a.IsDelete);
+
             if (string.IsNullOrEmpty(filter.FilterCustomerName))
             {
                 query = query.Where(a
@@ -86,7 +89,7 @@ namespace MyCrm.Application.Services
             #endregion
 
             #region order
-            query = query.OrderByDescending(a => a.CreateDate );
+            query = query.OrderByDescending(a => a.CreateDate);
             #endregion
 
             #region paging
@@ -97,11 +100,11 @@ namespace MyCrm.Application.Services
 
             #endregion
 
-            return filter.SetEntity(AllEntities ).SetPaging(pager);
+            return filter.SetEntity(AllEntities).SetPaging(pager);
 
         }
 
-      
+
 
         public async Task<EditOrderResult> EditOrder(EditOrderViewModel orderViewModel, IFormFile imageProfile)
         {
@@ -124,7 +127,7 @@ namespace MyCrm.Application.Services
 
             order.OrderId = orderViewModel.OrderId;
             order.Description = orderViewModel.Description;
-            order.OrderType =  orderViewModel.OrderType;
+            order.OrderType = orderViewModel.OrderType;
             order.Title = orderViewModel.Title;
 
             //if (!string.IsNullOrEmpty(orderImageName))
@@ -134,16 +137,16 @@ namespace MyCrm.Application.Services
             await _orderRepository.UpdateOrder(order);
 
             await _orderRepository.SaveChange();
-             return EditOrderResult.Success;
+            return EditOrderResult.Success;
 
-                
-      
+
+
 
         }
 
         public async Task<EditOrderViewModel> GetOrderForEdit(long orderId)
         {
-           var order = await _orderRepository.GetOrderById(orderId);
+            var order = await _orderRepository.GetOrderById(orderId);
             if (order == null)
             {
                 return null;
@@ -179,12 +182,55 @@ namespace MyCrm.Application.Services
                 Title = order.Title,
                 ImageName = order.ImageName,
                 CustomerId = order.CustomerId,
-               // IsFinish = order.IsFinish,
+                // IsFinish = order.IsFinish,
                 OrderType = order.OrderType
-               // IsSale = order.IsSale
-               
+                // IsSale = order.IsSale
+
             };
             return result;
+        }
+
+        public async Task<bool> DeleteOrder(long orderId)
+        {
+            var order = await _orderRepository.GetOrderById(orderId);
+            if (order == null)
+            {
+                return false;
+            }
+            order.IsDelete = true;
+            await _orderRepository.UpdateOrder(order);
+            await _orderRepository.SaveChange();
+
+            return true;
+
+        }
+
+        public async Task<AddOrderSelectMarketerResult> AddOrderSelectMarketer(OrderSelectMarketerViewModel marketerViewModel, long userId)
+        {
+            var order = await _orderRepository.GetOrderById(marketerViewModel.OrderId);
+            if (order == null)
+            {
+                return AddOrderSelectMarketerResult.Fail;
+            }
+
+            var selectedMarketerqueryable = await _orderRepository.GetOrderSelectedMarkets();
+
+            if (selectedMarketerqueryable.Any(a => a.OrderId == order.OrderId && !a.IsDelete))
+            {
+                return AddOrderSelectMarketerResult.SelectedMarketerExist;
+            }
+
+            var selectMarketer = new OrderSelectedMarketer()
+            {
+                Description = marketerViewModel.Description,
+                ModifyUserId = userId,
+                MarketerId = marketerViewModel.MarketerId,
+                OrderId = marketerViewModel.OrderId
+            };
+            await _orderRepository.AddOrderSelectmarketer(selectMarketer);
+            await _orderRepository.SaveChange();
+
+            return AddOrderSelectMarketerResult.Success;
         }
     }
 }

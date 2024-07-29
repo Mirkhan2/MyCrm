@@ -6,6 +6,77 @@
     ViewData["Title"] = "لیست سفارشات";
 }
 
+
+@section custom_js
+    {
+    <script>
+        function OpenSelectMarketerModal(orderId) {
+            $.ajax({
+                url: "/Order/SelectMarketerModal",
+                type: "Get",
+                data: {
+                    orderId: orderId
+                },
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    $("#content").html(response);
+                    $("#basicModal").modal("show");
+                },
+                error: function () {
+
+                }
+            });
+        }
+
+        function SubmitForm() {
+            var sendData = $('#SelectedMarketerForm').serializeArray().reduce(function (obj, item) {
+                obj[item.name] = item.value;
+                return obj;
+            },
+                {});
+
+
+            var form_data = new FormData();
+
+            for (var key in sendData) {
+                form_data.append(key, sendData[key]);
+            }
+
+            $.ajax({
+                url: "/Order/SelectMarketerModal",
+                type: "POST",
+                data: form_data,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    SelectOrderMarketerDone(response);
+                },
+                error: function () {
+
+                }
+            });
+        }
+
+        function SelectOrderMarketerDone(response) {
+            if (response.status === "Success") {
+                ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
+                $("#basicModal").modal("hide");
+            }
+            else if (response.status === "Exist") {
+                ShowMessage("اعلان", "قبلا بازاریاب داشته است", "warning");
+                $("#basicModal").modal("hide");
+            } else {
+                ShowMessage("اعلان", "عملیات با شکست مواجه شد", "error");
+            }
+        }
+    </script>
+}
+
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -97,6 +168,7 @@
                                         <div class="d-flex">
                                             <a asp-controller="Order" asp-action="EditOrder" asp-route-orderId="@order.OrderId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-edit text-white"></i></a>
                                             <a asp-controller="Order" asp-action="DeleteOrder" asp-route-orderId="@order.OrderId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash text-white"></i></a>
+                                            <a onclick="OpenSelectMarketerModal('@order.OrderId')" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-search text-white"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -111,4 +183,29 @@
             <partial name="_PagingPartial" model="@Model.GetCurrentPaging()" />
         </div>
     </div>
+</div>
+
+
+<div class="modal fade" id="basicModal">
+    <div class="modal-dialog" role="document">
+
+        <form method="post" id="SelectedMarketerForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">انتخاب بازاریاب</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="content">
+                    >
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="SubmitForm()" class="btn btn-success light">ثبت</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <
 </div>

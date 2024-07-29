@@ -24,6 +24,8 @@ namespace MyCrm.Domain.Interfaces
         Task<Customer> GetCustomerbyId(long customerId);
 
         Task UpdateCustomer(Customer customer);
-
+        //Task<List<Marketer>> GetMarketerLsit();
+        Task<IQueryable<Marketer>>GetMarketerQueryable();
+        Task<IQueryable<User>> GetUserQueryable();
     }
 }

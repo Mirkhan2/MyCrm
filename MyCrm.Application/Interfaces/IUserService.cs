@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using MyCrm.Domain.Entities.Account;
+using MyCrm.Domain.ViewModels.Account;
 using MyCrm.Domain.ViewModels.User;
 using static MyCrm.Domain.ViewModels.User.AddCustomerViewModel;
 
@@ -24,6 +25,10 @@ namespace MyCrm.Application.Interface
 
         Task<bool> DeleteUser(long userId);
         Task<Customer> GetCustomerById(long customerId);
+        Task<List<Marketer>> GetMarketerList();
+        Task<LoginUserResult> LoginUser(LoginUserViewModel loginUserViewModel);
+
+        Task<User> GetUserByUserName(string userName);
        
 
     }

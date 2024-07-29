@@ -63,18 +63,13 @@
                                 <span asp-validation-for="IrCode" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label asp-for="IntroduceName"></label>
-                                <input asp-for="IntroduceName" class="form-control">
-                                <span asp-validation-for="IntroduceName" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-6">
                                 <label asp-for="Education"></label>
                                 <select class="form-control" asp-for="Education" asp-items="@Html.GetEnumSelectList<Education>()"></select>
                                 <span asp-validation-for="Education" class="text-danger"></span>
                             </div>
 
                             <div class="form-group col-md-12">
-                                <label for="MainImage" class="btn btn-primary">
+                                <label for="MainImage" class="btn btn-primary  d-block">
                                     <span>تصویر پروفایل</span>
                                 </label>
                                 <input ImageInput="1" type="file" name="MainImage" id="MainImage" class="d-none" />

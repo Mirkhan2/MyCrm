@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyCrm.Domain.Entities.Account;
+using MyCrm.Domain.Entities.Orders;
 using MyCrm.Domain.Interfaces;
 using MyCrm.Domain.ViewModels.Paging;
 using MyCrm.Domain.ViewModels.User;
@@ -11,12 +12,14 @@ namespace MyCrm.Data.Repository
 {
     public class UserRepository : IUserRepository
     {
+        #region ctor
         private readonly CrmContext _context;
 
         public UserRepository(CrmContext context)
         {
             _context = context;
         }
+        #endregion
 
         public async Task<FilterUserViewModel> FilterUser (FilterUserViewModel filter)
         {
@@ -117,6 +120,27 @@ namespace MyCrm.Data.Repository
         public async Task UpdateCustomer(Customer customer)
         {
              _context.Cursomers.Update(customer);
+        }
+
+        public async Task AddOrderSelectMarketer(OrderSelectedMarketer orderSelectedMarketer)
+        {
+            await _context.OrderSelectedMarketers.AddAsync(orderSelectedMarketer);
+        }
+
+        public async Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectMarketer()
+        {
+            return _context.OrderSelectedMarketers.AsQueryable();
+        }
+
+        public Task<IQueryable<Marketer>> GetMarketerQueryable()
+        {
+            return _context.Marketers.Include(a => a.User).AsQueryable();
+        }
+
+        public Task<IQueryable<User>> GetUserQueryable()
+        {
+            return _context.Users.AsQueryable();
+          
         }
     }
 }

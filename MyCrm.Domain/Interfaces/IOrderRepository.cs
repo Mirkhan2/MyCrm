@@ -17,8 +17,11 @@ namespace MyCrm.Domain.Interfaces
         Task UpdateOrder(Order order);
         Task<IQueryable<Order>> GetOrders();
 
-        //Task DeleteOrder(long orderId);
+        Task DeleteOrder(long orderId);
 
+        Task AddOrderSelectmarketer(OrderSelectedMarketer orderSelectedMarketer);   
+
+        Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarkets();
 
     }
 }

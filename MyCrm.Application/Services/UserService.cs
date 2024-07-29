@@ -11,6 +11,7 @@ using MyCrm.Application.Security;
 using MyCrm.Application.Static_Tools;
 using MyCrm.Domain.Entities.Account;
 using MyCrm.Domain.Interfaces;
+using MyCrm.Domain.ViewModels.Account;
 using MyCrm.Domain.ViewModels.User;
 
 namespace MyCrm.Application.Services
@@ -299,21 +300,21 @@ namespace MyCrm.Application.Services
             await _userRepository.SaveChangeAsync();
             if (user.Marketer != null)
             {
-            var marketer = await _userRepository.GetUserDetailById(userId);  
-                
+                var marketer = await _userRepository.GetUserDetailById(userId);
+
                 marketer.IsDelete = true;
-           //    await _userRepository.UpdateMarketer(marketer);
+                //    await _userRepository.UpdateMarketer(marketer);
                 await _userRepository.SaveChangeAsync();
             }
 
-            if (user.Customer !=null)
+            if (user.Customer != null)
             {
                 var customer = await _userRepository.GetCustomerbyId(userId);
                 customer.IsDelete = false;
                 await _userRepository.UpdateCustomer(customer);
 
             }
- 
+
             return true;
 
         }
@@ -323,6 +324,49 @@ namespace MyCrm.Application.Services
             return await _userRepository.GetCustomerbyId(customerId);
         }
 
-       
+        public async Task<List<Marketer>> GetMarketerList()
+        {
+            var marketers = await _userRepository.GetMarketerQueryable();
+
+            return marketers.ToList();
+        }
+
+        public async Task<LoginUserResult> LoginUser(LoginUserViewModel loginUserViewModel)
+        {
+
+
+            var usersList = await _userRepository.GetUserQueryable();
+
+            var user = usersList.FirstOrDefault(a => a.UserName == loginUserViewModel.UserName);
+
+            if (user == null)
+            {
+                return LoginUserResult.NotFound;
+            }
+
+            if (user.Password != PasswordHelper.EncodePasswordMd5(loginUserViewModel.Password))
+            {
+                return LoginUserResult.PasswordNotCorrect;
+            }
+            return LoginUserResult.Success;
+        }
+
+        public async Task<User> GetUserByUserName(string userName)
+        {
+            var usersList = await _userRepository.GetUserQueryable();
+
+            var user = usersList.FirstOrDefault(a => a.UserName == userName);
+
+            return user;
+        }
+
+        //public async Task<User> GetUserByUserName(string userName)
+        //{
+        //    var usersList = await _userRepository.GetUserQueryable();
+
+        //    var user = usersList.FirstOrDefault(a => a.UserName == userName);
+
+        //}
+        //return user;
     }
 }

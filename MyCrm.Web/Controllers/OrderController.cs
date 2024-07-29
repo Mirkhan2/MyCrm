@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyCrm.Application.Extensions;
 using MyCrm.Application.Interface;
 using MyCrm.Application.Interfaces;
 using MyCrm.Domain.ViewModels.Orders;
@@ -111,5 +112,68 @@ namespace MyCrm.Web.Controllers
             return View(orderViewModel);
         }
         #endregion
+
+        #region Delete Order
+        public async Task<IActionResult> DeleteOrder(long orderId)
+        {
+            var result = await _orderService.DeleteOrder(orderId);
+
+            if (result)
+            {
+                //TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                return RedirectToAction("FilterOrders");
+            }
+            else
+            {
+              //  TempData[Errormessage] = "عملیات با شکست مواجه شد";
+                return RedirectToAction("FilterOrders");
+            }
+        }
+        #endregion
+
+        #region Select Marketer For Order
+
+        public async Task<IActionResult> SelectMarketerModal(long orderId)
+        {
+            var model = new OrderSelectMarketerViewModel { OrderId = orderId };
+
+            ViewBag.Marketers = await _userService.GetMarketerList();
+
+            return PartialView("_SelectMarketerPartial", model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SelectMarketerModal(OrderSelectMarketerViewModel orderSelectMarketerViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new JsonResult(new { status = "NOtValid" });
+            }
+
+            var result = await _orderService.AddOrderSelectMarketer(orderSelectMarketerViewModel, User.GetUserId());
+            switch (result)
+            {
+                case AddOrderSelectMarketerResult.Success:
+                    return new JsonResult(new { status = "Success" });
+               
+                case AddOrderSelectMarketerResult.Fail:
+                    return new JsonResult(new { status = "Error" });
+
+                case AddOrderSelectMarketerResult.SelectedMarketerExist:
+                    return new JsonResult(new { status = "Exist" });
+            }
+
+            return new JsonResult(new { status = "Error" });
+        }
+
+        #endregion
+
+        #region Selected Marketer List
+
+        public async Task<IActionResult> FilterOrderSelectedMarketer()
+        {
+            return View();
+        }
+        #endregion
+
     }
 }
