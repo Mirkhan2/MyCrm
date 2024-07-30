@@ -46,7 +46,7 @@ namespace MyCrm.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData[Errormessage] = "اطلاعات وارد شده معتبر نمی باشد";
+                TempData[ErrorMessage] = "اطلاعات وارد شده معتبر نمی باشد";
                 return View(customerViewModel);
             }
 
@@ -58,7 +58,7 @@ namespace MyCrm.Web.Controllers
                     TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("Index");
                 case AddCustomerResult.Fail:
-                    TempData[Errormessage] = "عملیات با شکست مواجه شد";
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                     break;
             }
             return View(customerViewModel);
@@ -91,7 +91,7 @@ namespace MyCrm.Web.Controllers
                     TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("Index");
                 case AddMarketerResult.Fail:
-                    TempData[Errormessage] = "عملیات با شکست مواجه شد";
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                     ModelState.AddModelError("UserName", "مشکلی در ثبت اطلاعات میباشد");
                     break;
             }
@@ -137,7 +137,7 @@ namespace MyCrm.Web.Controllers
                     TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("Index");
                 case EditMarketerResult.Fail:
-                    TempData[Errormessage] = "عملیات با شکست مواجه شد";
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                     break;
             }
 
@@ -159,7 +159,7 @@ namespace MyCrm.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData[Errormessage] = "اطلاعات وارد شده معتبر نمی باشد";
+                TempData[ErrorMessage] = "اطلاعات وارد شده معتبر نمی باشد";
                 return View(customerViewModel);
             }
 
@@ -171,7 +171,7 @@ namespace MyCrm.Web.Controllers
                     TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("Index");
                 case EditCustomerResult.Fail:
-                    TempData[Errormessage] = "عملیات با شکست مواجه شد";
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                     break;
             }
 
@@ -195,7 +195,7 @@ namespace MyCrm.Web.Controllers
             }
             else
             {
-                TempData[Errormessage] = "عملیات با شکست مواجه شد";
+                TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                 return RedirectToAction("Index");
             }
         }

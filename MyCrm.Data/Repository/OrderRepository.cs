@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MyCrm.Data.Context;
 using MyCrm.Domain.Entities.Orders;
 using MyCrm.Domain.Interfaces;
 
@@ -22,35 +23,35 @@ namespace MyCrm.Data.Repository
         public async Task<Order> GetOrderById(long orderId)
         {
             return await _context.Orders.FirstOrDefaultAsync(a => a.OrderId == orderId);
-      
+
         }
 
         public async Task AddOrder(Order order)
         {
-             await _context.AddAsync(order);
+            await _context.AddAsync(order);
 
 
         }
 
         public async Task SaveChange()
         {
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
         }
 
         public async Task UpdateOrder(Order order)
         {
 
-             _context.Orders.Update(order);
+            _context.Orders.Update(order);
         }
 
         public async Task<IQueryable<Order>> GetOrders()
         {
             //lazyloading*
-           return  _context.Orders
-                .Include(a => a.Customer)
-                .ThenInclude(a => a.User)
-                .AsQueryable();
+            return _context.Orders
+                 .Include(a => a.Customer)
+                 .ThenInclude(a => a.User)
+                 .AsQueryable();
         }
 
         public Task DeleteOrder(long orderId)
@@ -60,24 +61,34 @@ namespace MyCrm.Data.Repository
 
         public async Task AddOrderSelectmarketer(OrderSelectedMarketer orderSelectedMarketer)
         {
-           await _context.OrderSelectedMarketers.AddAsync(orderSelectedMarketer);
+            await _context.OrderSelectedMarketers.AddAsync(orderSelectedMarketer);
 
         }
 
-        public Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarkets()
+        public async Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarkets()
         {
-            throw new NotImplementedException();
+            return _context.OrderSelectedMarketers
+                 .Include(a => a.Order)
+                 .ThenInclude(a => a.Customer)
+                 .ThenInclude(a => a.User)
+                 .Include(a => a.Marketer)
+                 .ThenInclude(a => a.User)
+                .AsQueryable();
         }
 
-        //public async Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarkets()
-        //{
-        //    return await _context.OrderSelectedMarketers.AsQueryable();
-        //}
+        public async Task<OrderSelectedMarketer> GetOrderSelectedMarketerbyId(long orderId)
+        {
+            return await _context.OrderSelectedMarketers.FirstOrDefaultAsync(a => a.OrderId == orderId);
+        }
 
-        //public await Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarkets()
-        //{
-        //    return _context.OrderSelectedMarketers.AsQueryable();
-        //}
-        //public async Task UpdateOrder
+        public async Task UpdateOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer)
+        {
+           _context.Update(orderSelectedMarketer);
+        }
+
+        public async Task DeleteOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer)
+        {
+             _context.OrderSelectedMarketers.Remove(orderSelectedMarketer);
+        }
     }
 }

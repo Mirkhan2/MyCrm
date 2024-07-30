@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MyCrm.Data.Context;
 using MyCrm.Domain.Entities.Account;
 using MyCrm.Domain.Entities.Orders;
 using MyCrm.Domain.Interfaces;
@@ -132,15 +133,15 @@ namespace MyCrm.Data.Repository
             return _context.OrderSelectedMarketers.AsQueryable();
         }
 
-        public Task<IQueryable<Marketer>> GetMarketerQueryable()
+
+        public async Task<IQueryable<Marketer>> GetMarketerQueryable()
         {
             return _context.Marketers.Include(a => a.User).AsQueryable();
         }
 
-        public Task<IQueryable<User>> GetUserQueryable()
+        public async Task<IQueryable<User>> GetUserQueryable()
         {
             return _context.Users.AsQueryable();
-          
         }
     }
 }

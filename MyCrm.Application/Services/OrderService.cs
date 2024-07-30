@@ -232,5 +232,60 @@ namespace MyCrm.Application.Services
 
             return AddOrderSelectMarketerResult.Success;
         }
+
+        public async Task<FilterOrderSelectedMarketer> FilterOrderSelectedMarketer(FilterOrderSelectedMarketer filter)
+        {
+            var query = await _orderRepository.GetOrderSelectedMarkets();
+
+
+            #region filter
+
+            query = query.Where(a => a.IsDelete);
+
+            if (string.IsNullOrEmpty(filter.FilterCustomerName))
+            {
+                query = query.Where(a
+                    => EF.Functions.Like(a.Order.Customer.User.FirstName, $"%{filter.FilterCustomerName}%") ||
+                       EF.Functions.Like(a.Order.Customer.User.LastName, $"%{filter.FilterCustomerName}%") ||
+                     EF.Functions.Like(a.Order.Customer.User.FirstName + " " + a.Order.Customer.User.LastName, $"%{filter.FilterCustomerName}%"));
+
+
+            }
+            if (string.IsNullOrEmpty(filter.FilterMarketerName))
+            {
+                query = query.Where(a => EF.Functions.Like(a.Marketer.User.FirstName + " " + a.Marketer.User.LastName, $"%{filter.FilterMarketerName}%"));
+
+            }
+            #endregion
+
+            #region order
+            query = query.OrderByDescending(a => a.CreateDate);
+            #endregion
+
+            #region paging
+            var pager = Pager.build(filter.PageId, filter.AllEntitiesCount, filter.TakeEntity,
+             filter.HowManyShowPageafterAndBefore);
+
+            var AllEntities = await query.Paging(pager).ToListAsync();
+
+            #endregion
+
+            return filter.SetEntity(AllEntities).SetPaging(pager);
+
+
+        }
+
+        public async Task<bool> DeleteOrderSelectedMarketer(long orderId)
+        {
+           var orderSelected = await _orderRepository.GetOrderSelectedMarketerbyId(orderId);
+            if (orderSelected == null)
+            {
+                return false;
+            }
+            
+            await _orderRepository.DeleteOrderSelectedMarketer(orderSelected);
+            await _orderRepository.SaveChange();
+            return true;
+        }
     }
 }

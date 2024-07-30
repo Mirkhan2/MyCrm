@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyCrm.Domain.Entities.Account;
+using MyCrm.Domain.Entities.Companies;
 using MyCrm.Domain.Entities.Orders;
 
-namespace MyCrm.Data
+namespace MyCrm.Data.Context
 {
     public class CrmContext : DbContext
     {
@@ -22,6 +23,7 @@ namespace MyCrm.Data
         public DbSet<Customer> Cursomers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderSelectedMarketer> OrderSelectedMarketers { get; set; }
+        public DbSet<Company> Companies { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyCrm.Domain.Entities.Orders;
+using MyCrm.Domain.Entities.Companies;
 
 namespace MyCrm.Domain.Entities.Account
 {
@@ -24,12 +25,14 @@ namespace MyCrm.Domain.Entities.Account
         public string CompanyName { get; set; }
 
         public bool IsDelete { get; set; }
+        public long? CompanyId { get; set; }
 
 
         #region Relations
 
         public User User { get; set; }
         public ICollection<Order> OrderCollection { get; set; }
+        public Company Company { get; set; }
 
         #endregion
     }

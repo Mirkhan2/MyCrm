@@ -8,20 +8,20 @@ using MyCrm.Domain.ViewModels.Paging;
 
 namespace MyCrm.Domain.ViewModels.Orders
 {
-    public class FilterOrderViewModel : BasePaging
+    public class FilterOrderSelectedMarketer : BasePaging
     {
-        public List<Order> Orders { get; set; }
-        public string FilterOrderName { get; set; }
+        public List<OrderSelectedMarketer> OrdersSelectedMarketer { get; set; }
+        public string FilterMarketerName { get; set; }
         public string FilterCustomerName { get; set; }
 
 
-        public FilterOrderViewModel SetEntity(List<Order> orders)
+        public FilterOrderSelectedMarketer SetEntity(List<OrderSelectedMarketer> ordersSelectedMarketer)
         {
-            this.Orders = orders;
+            this.OrdersSelectedMarketer = ordersSelectedMarketer;
             return this;
         }
 
-        public FilterOrderViewModel SetPaging(BasePaging paging)
+        public FilterOrderSelectedMarketer SetPaging(BasePaging paging)
         {
             this.PageId = paging.PageId;
             this.AllEntitiesCount = paging.AllEntitiesCount;
@@ -30,7 +30,7 @@ namespace MyCrm.Domain.ViewModels.Orders
             this.AllEntitiesCount = paging.AllEntitiesCount;
             this.SkipEntity = paging.SkipEntity;
             this.StartPage = paging.StartPage;
-         //   this.HowManyShowPageAfterAndBefore = paging.HowManyShowPageAfterAndBefore;
+          //  this.HowManyShowPageAfterAndBefore = paging.HowManyShowPageAfterAndBefore;
             this.PageCount = paging.PageCount;
             this.TakeEntity = paging.TakeEntity;
 

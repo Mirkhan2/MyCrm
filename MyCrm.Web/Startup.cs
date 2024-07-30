@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MyCrm.Data;
+using MyCrm.Data.Context;
 using MyCrm.IoC;
 
 namespace MyCrm.Web

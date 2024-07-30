@@ -169,9 +169,27 @@ namespace MyCrm.Web.Controllers
 
         #region Selected Marketer List
 
-        public async Task<IActionResult> FilterOrderSelectedMarketer()
+        public async Task<IActionResult> FilterOrderSelectedMarketer(FilterOrderSelectedMarketer filter)
         {
-            return View();
+            var result = await _orderService.FilterOrderSelectedMarketer(filter);
+            return View(result);
+        }
+        #endregion
+
+        #region Delete Order Selected Marketer
+        public async Task<IActionResult> DeleteOrderSelectedmarketer(long orderId)
+        {
+            var result = await _orderService.DeleteOrderSelectedMarketer(orderId);
+            if (result)
+            {
+            //    TempData[ErrorMessage] = "shekast";
+
+                return RedirectToAction("FilterOrderSelectedMarketer");
+                  }
+         //   TempData[SuccesMessage] = " Dorost";
+            return RedirectToAction("FilterOrderSelectedMarketer");
+
+
         }
         #endregion
 

@@ -22,6 +22,9 @@ namespace MyCrm.Domain.Interfaces
         Task AddOrderSelectmarketer(OrderSelectedMarketer orderSelectedMarketer);   
 
         Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarkets();
+        Task<OrderSelectedMarketer> GetOrderSelectedMarketerbyId(long orderId);
+        Task UpdateOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer);
+        Task DeleteOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer);
 
     }
 }

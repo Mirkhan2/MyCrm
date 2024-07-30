@@ -19,10 +19,12 @@ namespace MyCrm.IoC
             service.AddTransient<IUserService, UserService>();
 
             service.AddTransient<IOrderService, OrderService>();
+            service.AddTransient<ICompanyService , CompanyService>();
 
 
             service.AddTransient<IUserRepository , UserRepository>();
             service.AddTransient<IOrderRepository , OrderRepository>();
+            service.AddTransient<ICompanyRepository , CompanyRepository>();
          
         }
     }
