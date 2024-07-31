@@ -1,8 +1,21 @@
 ﻿@using MyCrm.Application.Convertor
 @using MyCrm.Application.Static_Tools
+@using MyCrm.Domain.Entities.Companies
 @model MyCrm.Domain.ViewModels.User.FilterUserViewModel
 @{
     ViewData["Title"] = "کاربران";
+    var companiesList = ViewBag.CompanyList as List<Company>;
+}
+
+@section custom_js
+    {
+    <script>
+        function OpenSelectCompanyModal(customerId) {
+            $('#customerId').val(customerId);
+            console.log(customerId);
+            $("#basicModal").modal("show");
+        }
+    </script>
 }
 
 <div class="row">
@@ -147,6 +160,7 @@
                                             {
                                                 <a asp-controller="User" asp-action="EditCustomer" asp-route-id="@user.UserId" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                                 <a asp-controller="Order" asp-action="CreateOrder" asp-route-id="@user.UserId" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-building"></i></a>
+                                                <a onclick="OpenSelectCompanyModal('@user.UserId')" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-search"></i></a>
                                             }
 
                                             <a asp-controller="User" asp-action="DeleteUser" asp-route-userId="@user.UserId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
@@ -166,5 +180,35 @@
     </div>
 </div>
 
+<div class="modal fade" id="basicModal">
+    <div class="modal-dialog" role="document">
 
-
+        <form method="post" id="SelecteCompanyForm" asp-action="SelectCompanyForCustomer" asp-controller="User">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">انتخاب شرکت</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="customerId" name="customerId" />
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label>انتخاب شرکت</label>
+                            <select class="form-control" name="companyId">
+                                @foreach (var company in companiesList)
+                                {
+                                    <option value="@company.CompanyId">@company.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success light">ثبت</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

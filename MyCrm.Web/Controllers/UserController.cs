@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyCrm.Application.Interface;
+using MyCrm.Application.Interfaces;
 using MyCrm.Domain.ViewModels.User;
 using static MyCrm.Domain.ViewModels.User.AddCustomerViewModel;
 
@@ -12,10 +13,12 @@ namespace MyCrm.Web.Controllers
         #region ctor
 
         private readonly IUserService _userService;
+        private readonly ICompanyService _companyService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ICompanyService companyService)
         {
             _userService = userService;
+            _companyService = companyService;
         }
 
         #endregion
@@ -26,6 +29,8 @@ namespace MyCrm.Web.Controllers
         public async Task<IActionResult> Index(FilterUserViewModel filter)
         {
             var result = await _userService.FilterUser(filter);
+            ViewBag.CompanyList = await _companyService.GetCompaniesList();
+
             return View(result);
         }
 
@@ -200,6 +205,24 @@ namespace MyCrm.Web.Controllers
             }
         }
 
+        #endregion
+
+        #region Select Company To CUstomer
+        [HttpPost]
+        public async Task<IActionResult> SelectCompanyFOrCustomer(long customerId, long companyId )
+        {
+            var result = await _companyService.SelectCompanyForCustomer(customerId, companyId);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = " suceess";
+            }
+            else
+            {
+                TempData[WarningMessage] = "error";
+            }
+            return RedirectToAction("Index");
+        }
         #endregion
     }
 

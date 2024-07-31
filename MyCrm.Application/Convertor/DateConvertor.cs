@@ -16,5 +16,18 @@ namespace MyCrm.Application.Convertor
                 persianCalender.GetMonth(time).ToString("") + "/" +
                 persianCalender.GetDayOfMonth(time).ToString("00");
         }
+        public static DateTime ToMiladiDate(this string date)
+        {
+            var splitedDate = date.Split('/');
+            int year = int.Parse(splitedDate[0]);
+            int month = int.Parse(splitedDate[1]);
+            int day = int.Parse(splitedDate[2]);
+
+            DateTime thisDate = new DateTime(year, month, day,new PersianCalendar());
+
+            return thisDate;
+
+
+        }
     }
 }

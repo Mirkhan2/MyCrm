@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyCrm.Domain.Entities.Account;
 using MyCrm.Domain.Entities.Companies;
+using MyCrm.Domain.Entities.Events;
 using MyCrm.Domain.Entities.Orders;
 
 namespace MyCrm.Data.Context
@@ -24,6 +25,7 @@ namespace MyCrm.Data.Context
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderSelectedMarketer> OrderSelectedMarketers { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Event>  Events { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

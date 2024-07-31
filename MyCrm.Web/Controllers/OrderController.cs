@@ -9,7 +9,7 @@ using MyCrm.Domain.ViewModels.User;
 
 namespace MyCrm.Web.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : BaseController
     {
         #region ctor
 
@@ -95,7 +95,7 @@ namespace MyCrm.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-          //      TempData[Warningmessage] = "اطلاعات وارد شده معتبر نمی باشد";
+             TempData[WarningMessage] = "اطلاعات وارد شده معتبر نمی باشد";
                 return View(orderViewModel);
 
             }
@@ -103,10 +103,10 @@ namespace MyCrm.Web.Controllers
             switch (result)
             {
                 case EditOrderResult.Success:
-            //        TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("FilterOrders");
                 case EditOrderResult.Fail:
-              //      TempData[Errormessage] = "عملیات با شکست مواجه شد";
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                     break;
             }
             return View(orderViewModel);
@@ -120,12 +120,12 @@ namespace MyCrm.Web.Controllers
 
             if (result)
             {
-                //TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                 return RedirectToAction("FilterOrders");
             }
             else
             {
-              //  TempData[Errormessage] = "عملیات با شکست مواجه شد";
+                TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                 return RedirectToAction("FilterOrders");
             }
         }

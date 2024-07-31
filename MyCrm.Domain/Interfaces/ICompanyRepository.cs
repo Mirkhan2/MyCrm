@@ -14,6 +14,8 @@ namespace MyCrm.Domain.Interfaces
         Task AddCompany(Company company);
         Task UpdateCompany(Company company);    
         Task SaveChange();
+        Task<IQueryable<Company>> GetCompanyQueryable();
+       // Task DeleteCompany(long companyId);
 
     }
 }

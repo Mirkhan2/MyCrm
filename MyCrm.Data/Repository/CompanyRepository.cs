@@ -43,5 +43,15 @@ namespace MyCrm.Data.Repository
         {
         _context.Companies.Update(company);
         }
+
+        public async Task<IQueryable<Company>> GetCompanyQueryable()
+        {
+            return _context.Companies.AsQueryable();
+        }
+
+        //public Task DeleteCompany(long companyId)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
