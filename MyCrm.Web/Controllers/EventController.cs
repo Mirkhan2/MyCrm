@@ -17,9 +17,6 @@ namespace MyCrm.Web.Controllers
         }
         #endregion
 
-        #region Filter Event
-        //   public Task<IActionResult> FilterOrders(Filer)
-        #endregion
         #region Create Event
         public async Task<IActionResult> CreateEvent(AddEventViewModel eventViewModel)
         {
@@ -45,6 +42,21 @@ namespace MyCrm.Web.Controllers
 
         }
         #endregion
-      
+
+
+        #region Filter Event
+        public async Task<IActionResult> FilterEvents(FilterEventViewModel filter)
+        {
+            var result = await _eventService.FilterEvent(filter);
+            return View(result);
+        }
+        //   public Task<IActionResult> FilterOrders(Filer)
+        #endregion
+        #region Edit
+        public async Task<IActionResult> EditEvent(long event)
+            {
+
+        }
+        #endregion
     }
 }

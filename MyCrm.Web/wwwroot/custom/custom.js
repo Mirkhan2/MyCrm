@@ -28,3 +28,22 @@ $("[ImageInput]").change(function () {
         reader.readAsDataURL(this.files[0]);
     }
 });
+
+var datePickers = $('.datePicker-custom');
+if (datePickers.length) {
+    datePickers.each(function (index, value) {
+        var pickerId = $(value).attr("id");
+        console.log(pickerId);
+        kameDatepicker(pickerId);
+        {
+            forceFarsiDigits: true,
+                markToday  : true,
+                highliSelectedDay : true,
+                markHolidays : true,
+                sync : true,
+                    gotoToday : true
+        });
+    });
+  
+}
+

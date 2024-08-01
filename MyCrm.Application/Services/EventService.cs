@@ -129,10 +129,20 @@ namespace MyCrm.Application.Services
 
             #region Filter
 
-            //if (!string.IsNullOrEmpty(filter.FilterEventName))
-            //{
-            //    query = query.Where(a => EF.Functions.Like(a.Name, $"%{filter.FilterCompanyName}%"));
-            //}
+            if (!string.IsNullOrEmpty(filter.FilterTitle))
+            {
+                query = query.Where(a => EF.Functions.Like(a.Title, $"%{filter.FilterTitle}%"));
+            }
+
+            if (!string.IsNullOrEmpty(filter.StartFromDate))
+            {
+                query = query.Where(a => a.EventDate > filter.StartFromDate.ToMiladiDate());
+            }
+
+            if (!string.IsNullOrEmpty(filter.EndFromDate))
+            {
+                query = query.Where(a => a.EventDate < filter.EndFromDate.ToMiladiDate());
+            }
 
             //if (!string.IsNullOrEmpty(filter.FilterCompanyCode))
             //{

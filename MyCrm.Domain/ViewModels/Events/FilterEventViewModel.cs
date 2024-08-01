@@ -11,7 +11,9 @@ namespace MyCrm.Domain.ViewModels.Events
     {
         public string FilterEventName { get; set; }
         public string FilterUserName { get; set; }
-        public string MyProperty { get; set; }
+        public string FilterTitle { get; set; }
+        public string StartFromDate { get; set; }
+        public string EndFromDate { get; set; }
 
         public List<Entities.Events.Event> Events { get; set; }
         public FilterEventViewModel SetEntity(List<Entities.Events.Event> events)
