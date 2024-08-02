@@ -22,12 +22,14 @@ namespace MyCrm.IoC
             service.AddTransient<ICompanyService , CompanyService>();
             service.AddTransient<IProgramSetting, ProgramSetting>();
             service.AddTransient<IEventService, EventService>();
+            service.AddTransient<ILeadService, LeadService>();
 
 
             service.AddTransient<IUserRepository , UserRepository>();
             service.AddTransient<IOrderRepository , OrderRepository>();
             service.AddTransient<ICompanyRepository , CompanyRepository>();
             service.AddTransient<IEventRepository , EventRepository>();
+            service.AddTransient<ILeadRepository , LeadRepository>();
             // service.AddTransient<I>
         }
     }

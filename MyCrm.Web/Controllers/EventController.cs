@@ -52,10 +52,70 @@ namespace MyCrm.Web.Controllers
         }
         //   public Task<IActionResult> FilterOrders(Filer)
         #endregion
-        #region Edit
-        public async Task<IActionResult> EditEvent(long event)
-            {
 
+        #region Edit
+        public async Task<IActionResult> EditEvent(long eventId)
+        {
+        var res= await _eventService.FillEditEventViewModel(eventId);
+            if (res == null)
+            {
+                return NotFound();
+            }
+           //ViewBag.eventt= await _eventService.GetEventById(res.EventId);
+           return View(res);
+        }
+        //[HttpGet]
+        //public async Task<IActionResult> EditEvent(long id)
+        //{
+        //    var result = await _eventService.GetEventForEditEvent(id);
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(result);
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> EditEvent(EditEventViewModel eventViewModel)
+        {
+          //  await _eventService.GetEventById(eventViewModel.EventId);
+            if (!ModelState.IsValid)
+            {
+                TempData[WarningMessage]= "";
+                return View(eventViewModel);
+            }
+
+            var result = await _eventService.EditEvent(eventViewModel);
+            switch (result)
+            {
+                case EditEventResult.Success:
+                    TempData[SuccessMessage]= " ";
+                    return RedirectToAction("FilterEvents");
+                case EditEventResult.Error:
+                    TempData[ErrorMessage]= " ";
+                    break;
+               
+            }
+            return View(eventViewModel);
+        }
+        #endregion
+
+        #region Delete
+        public async Task<IActionResult > DeleteEvent(long eventId)
+        {
+            var result = await _eventService.DeleteEvent(eventId);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = "";
+                return RedirectToAction("FilterEvents");
+            }
+
+            else
+            {
+                TempData[ErrorMessage] = "";
+                return RedirectToAction("FilterEvents");
+            }
         }
         #endregion
     }

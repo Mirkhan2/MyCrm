@@ -33,18 +33,18 @@ namespace MyCrm.Application.Services
         }
         #endregion
 
-        public async Task<AddEventResult> AddEvent(AddEventViewModel eventr, long userId)
+        public async Task<AddEventResult> AddEvent(AddEventViewModel eventViewModel, long userId)
         {
 
             var eve = new Event()
             {
                 //UserId = eventr.UserId,
-                Content = eventr.Content,
-                EventDate = eventr.EventDate.ToMiladiDate(),
-                CreateDate = eventr.CreateDate,
+                Content = eventViewModel.Content,
+                EventDate = eventViewModel.EventDate.ToMiladiDate(),
+                CreateDate = eventViewModel.CreateDate,
                 //EventId = eventr.EventId,
-                EventType = eventr.EventType,
-                Title = eventr.Title,
+                EventType = eventViewModel.EventType,
+                Title = eventViewModel.Title,
                 UserId = userId
 
 
@@ -78,21 +78,21 @@ namespace MyCrm.Application.Services
             return true;
         }
 
-        public async Task<EditEventResult> EditEvent(EditEventViewModel eventr)
+        public async Task<EditEventResult> EditEvent(EditEventViewModel eventViewModel)
         {
-            var eve = await _eventRepository.GetEventById(eventr.EventId);
+            var eve = await _eventRepository.GetEventById(eventViewModel.EventId);
             if (eve == null)
             {
                 return EditEventResult.Error;
             }
 
 
-            eve.Content = eventr.Content;
-            eve.EventDate = eventr.EventDate.ToMiladiDate();
+            eve.Content = eventViewModel.Content;
+            eve.EventDate = eventViewModel.EventDate.ToMiladiDate();
             // eve.CreateDate = eventr.CreateDate;
             //EventId = eventr.EventId,
-            eve.EventType = eventr.EventType;
-            eve.Title = eventr.Title;
+            eve.EventType = eventViewModel.EventType;
+            eve.Title = eventViewModel.Title;
 
 
             //eve.CreateDate = DateTime.Now.AddDays
@@ -102,7 +102,7 @@ namespace MyCrm.Application.Services
 
         }
 
-        public async Task<EditEventViewModel> FillEditEventViewMode(long eventId)
+        public async Task<EditEventViewModel> FillEditEventViewModel(long eventId)
         {
             var myEvent = await _eventRepository.GetEventById(eventId);
             if (myEvent == null)
@@ -163,20 +163,7 @@ namespace MyCrm.Application.Services
             return filter.SetEntity(allEntities).SetPaging(pager);
         }
 
-        public Task<Event> GetEventById(string userName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<EditEventViewModel> GetEventForEdit(long enventrId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Event>> GetEventList()
-        {
-            throw new NotImplementedException();
-        }
+      
 
 
     }

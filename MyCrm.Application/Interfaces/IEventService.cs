@@ -11,14 +11,14 @@ namespace MyCrm.Application.Interfaces
 {
     public interface IEventService
     {
-        Task<AddEventResult> AddEvent(AddEventViewModel eventr, long userId);
-        Task<EditEventResult> EditEvent(EditEventViewModel eventr);
+        Task<AddEventResult> AddEvent(AddEventViewModel eventViewModel, long userId);
+        Task<EditEventResult> EditEvent(EditEventViewModel eventViewModel);
         Task<FilterEventViewModel> FilterEvent(FilterEventViewModel filter);
-        Task<EditEventViewModel> GetEventForEdit(long enventrId);
+     //   Task<EditEventViewModel> GetEventForEdit(long enventrId);
         Task<bool> DeleteEvent(long eventId);
-        Task<Event> GetEventById(string userName);
-        Task<List<Event>> GetEventList();
-        Task<EditEventViewModel> FillEditEventViewMode(long  eventId);  
+      //  Task<Event> GetEventById(string userName);
+      //  Task<List<Event>> GetEventList();
+        Task<EditEventViewModel> FillEditEventViewModel(long  eventId);  
 
     }
 }

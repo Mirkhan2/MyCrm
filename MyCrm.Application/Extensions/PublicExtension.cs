@@ -15,10 +15,12 @@ namespace MyCrm.Application.Extensions
             var enumDisplayName = myEnum.GetType()
                 .GetMember(myEnum.ToString())
                 .FirstOrDefault();
+
             if (enumDisplayName != null)
             {
-                return enumDisplayName.GetCustomAttributes<DisplayAttribute>().GetName();
+                return enumDisplayName.GetCustomAttribute<DisplayAttribute>().GetName();
             }
+
             return "";
         }
     }
