@@ -15,6 +15,7 @@ namespace MyCrm.Domain.ViewModels.Leads
     {
         public List<Lead> Leads { get; set; }
         public string FilterLeadTopic { get; set; }
+        public string FilterCustomerName { get; set; }
         public string FilterLeadName { get; set; }
         public FilterLeadState FilterLeadState { get; set; }
        

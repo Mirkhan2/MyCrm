@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyCrm.Domain.Entities.Events;
+using MyCrm.Domain.Entities.Leads;
 using MyCrm.Domain.Entities.Orders;
 
 namespace MyCrm.Domain.Entities.Account
@@ -62,8 +63,10 @@ namespace MyCrm.Domain.Entities.Account
         public Customer Customer { get; set; }
         public ICollection<OrderSelectedMarketer> OrderSelectedMarketers { get; set; }
         public ICollection<Event> Events { get; set; }
-        #endregion
+        public ICollection<Lead> CollectionLeadOwner { get; set; }
+        public ICollection<Lead> CollectionLeadCreatedBy { get; set; }
 
+        #endregion
     }
 
     public enum Gender

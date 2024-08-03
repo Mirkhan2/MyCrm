@@ -108,19 +108,19 @@ namespace MyCrm.Data.Repository
 
         public async Task AddCustomer(Customer customer)
         {
-            _context.Cursomers.AddAsync(customer);
+            _context.Customers.AddAsync(customer);
         }
 
         public async Task<Customer> GetCustomerbyId(long customerId)
         {
-            return await _context.Cursomers
+            return await _context.Customers
                 .Include(a => a.User)
                 .FirstOrDefaultAsync(a => a.UserId == customerId);
         }
 
         public async Task UpdateCustomer(Customer customer)
         {
-             _context.Cursomers.Update(customer);
+             _context.Customers.Update(customer);
         }
 
         public async Task AddOrderSelectMarketer(OrderSelectedMarketer orderSelectedMarketer)

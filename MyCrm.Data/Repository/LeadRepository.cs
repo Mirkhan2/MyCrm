@@ -19,31 +19,32 @@ namespace MyCrm.Data.Repository
             _context = context;
         }
         #endregion
-
-        public async  Task ILeadRepository.AddLead(Lead lead)
+        public async Task AddLead(Lead lead)
         {
-            await _context.Leads.Add(lead);
+            await _context.Leads.AddAsync(lead);
         }
 
-       public  async Task<Lead> ILeadRepository.GetLeadById(long leadId)
+        public async Task<Lead> GetLeadById(long leadId)
         {
-
-            await _context.Leads.Update(lead);
+           return await _context.Leads.FirstOrDefaultAsync(a => a.LeadId == leadId);  
         }
 
-         Task<IQueryable<Lead>> ILeadRepository.GetLeadQueryable()
+        public async Task<IQueryable<Lead>> GetLeadQueryable()
         {
             return  _context.Leads.AsQueryable();
         }
 
-        async Task ILeadRepository.SaveChanges()
+        public async Task SaveChanges()
         {
-            await _context.Leads.FirstOrDefaultAsync(a => a.LeadId == leadId);
+            await _context.SaveChangesAsync();
         }
 
-        Task ILeadRepository.UpdateLead(Lead lead)
+        public async Task UpdateLead(Lead lead)
         {
-            throw new NotImplementedException();
+             _context.Leads.Update(lead);
         }
+     
+
+
     }
 }

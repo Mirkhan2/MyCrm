@@ -10,6 +10,7 @@ namespace MyCrm.Domain.Entities.Leads
 {
     public class Lead
     {
+
         [Key]
         public long LeadId { get; set; }
         public long CreatedById { get; set; }

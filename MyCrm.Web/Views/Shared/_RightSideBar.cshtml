@@ -31,7 +31,26 @@
                     <li><a asp-controller="User" asp-action="CreateCustomer">افزودن مشتری </a></li>
                 </ul>
             </li>
-
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24" />
+                            <rect fill="#000000" x="4" y="16" width="4" height="4" rx="1" />
+                            <rect fill="#000000" x="4" y="10" width="4" height="4" rx="1" />
+                            <rect fill="#000000" x="10" y="16" width="4" height="4" rx="1" />
+                            <rect fill="#000000" opacity="0.3" x="10" y="10" width="4" height="4" rx="1" />
+                            <rect fill="#000000" x="4" y="4" width="4" height="4" rx="1" />
+                            <rect fill="#000000" x="16" y="16" width="4" height="4" rx="1" />
+                        </g>
+                    </svg>
+                    <span class="nav-text">مدیریت سرنخ ها</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a asp-controller="Lead" asp-action="FilterLeads">لیست همه سرنخ ها </a></li>
+                    <li><a asp-controller="Lead" asp-action="CreateLead">افزودن سرنخ </a></li>
+                </ul>
+            </li>
             <li>
                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">

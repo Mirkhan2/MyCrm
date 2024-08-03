@@ -55,7 +55,7 @@ namespace MyCrm.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                // TempData[Warningmessage] = "اطلاعات وارد شده صحیح نمی باشد";
+                 TempData[WarningMessage] = "اطلاعات وارد شده صحیح نمی باشد";
                 return View(orderViewModel);
             }
 
@@ -64,7 +64,7 @@ namespace MyCrm.Web.Controllers
             switch (result)
             {
                 case CreateOrderResult.Success:
-                    // TempData[Successmessage] = "عملیات با موفقیت انجام شد";
+                     TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("FilterOrders");
                     break;
                 case CreateOrderResult.Fail:

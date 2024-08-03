@@ -13,6 +13,6 @@ namespace MyCrm.Domain.Interfaces
         Task UpdateLead(Lead lead);
         Task SaveChanges();
         Task<Lead> GetLeadById(long leadId);
-       Task<IQueryable<Lead>> GetLeadQueryable ();
+       Task<IQueryable<Lead>> GetLeadQueryable();
     }
 }

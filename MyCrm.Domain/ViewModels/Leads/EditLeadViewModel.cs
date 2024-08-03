@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyCrm.Domain.ViewModels.Lead
+namespace MyCrm.Domain.ViewModels.Leads
 {
     public class EditLeadViewModel
     {  public long LeadId { get; set; }
