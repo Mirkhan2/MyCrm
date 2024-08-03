@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyCrm.Application.Extensions;
+using MyCrm.Application.Interface;
 using MyCrm.Application.Interfaces;
 using MyCrm.Domain.ViewModels.Leads;
 using static MyCrm.Domain.ViewModels.Leads.CreateLeadViewModel;
@@ -11,9 +12,11 @@ namespace MyCrm.Web.Controllers
     {
         #region Ctor
         private readonly ILeadService _leadService;
-        public LeadController(ILeadService leadService)
+        private readonly IUserService _userService;
+        public LeadController(ILeadService leadService, IUserService userService)
         {
             _leadService = leadService;
+            _userService = userService;
         }
         #endregion
 
@@ -21,6 +24,9 @@ namespace MyCrm.Web.Controllers
         public async Task<IActionResult> FilterLeads(FilterLeadViewModel filter)
         {
             var model = await _leadService.FilterLeads(filter);
+
+            ViewBag["marketerList "] = await _userService.GetMarketerList();
+
             return View(model);
         }
         #endregion
