@@ -13,5 +13,6 @@ namespace MyCrm.Domain.ViewModels
         public int TodayCustomerCount { get; set; }
         public int CompanyCount { get; set; }
         public Entities.Account.User SelfUser { get; set; }
+        public int UserOpenLeadCount { get; set; }
     }
 }

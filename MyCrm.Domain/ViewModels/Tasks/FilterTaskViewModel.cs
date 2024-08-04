@@ -3,38 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyCrm.Domain.Entities.Orders;
+using MyCrm.Domain.Entities.Tasks;
 using MyCrm.Domain.ViewModels.Paging;
 
-namespace MyCrm.Domain.ViewModels.Orders
+namespace MyCrm.Domain.ViewModels.Tasks 
 {
-    public class FilterOrderViewModel : BasePaging
+    public class FilterTaskViewModel : BasePaging
     {
-        public List<Order> Orders { get; set; }
+        public List<CrmTask> CrmTasks { get; set; }
         public string FilterOrderName { get; set; }
         public string FilterCustomerName { get; set; }
 
-
-        public FilterOrderViewModel SetEntity(List<Order> orders)
+        public FilterTaskViewModel SetEntity(List<CrmTask> tasks)
         {
-            this.Orders = orders;
+            this.CrmTasks = tasks;
             return this;
         }
-
-        public FilterOrderViewModel SetPaging(BasePaging paging)
+        public FilterTaskViewModel SetPaging(BasePaging paging)
         {
             this.PageId = paging.PageId;
             this.AllEntitiesCount = paging.AllEntitiesCount;
             this.StartPage = paging.StartPage;
             this.EndPage = paging.EndPage;
             this.AllEntitiesCount = paging.AllEntitiesCount;
-            this.SkipEntity = paging.SkipEntity;
-           // this.StartPage = paging.StartPage;
-           this.HowManyShowPageafterAndBefore = paging.HowManyShowPageafterAndBefore ;
+            this.SkipEntity  = paging.SkipEntity;
+          this.HowManyShowPageafterAndBefore = paging.HowManyShowPageafterAndBefore;
             this.PageCount = paging.PageCount;
             this.TakeEntity = paging.TakeEntity;
 
             return this;
         }
     }
+
 }

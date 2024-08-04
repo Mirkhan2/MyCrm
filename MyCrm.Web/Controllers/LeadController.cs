@@ -5,6 +5,7 @@ using MyCrm.Application.Interface;
 using MyCrm.Application.Interfaces;
 using MyCrm.Domain.ViewModels.Leads;
 using static MyCrm.Domain.ViewModels.Leads.CreateLeadViewModel;
+using static MyCrm.Domain.ViewModels.Leads.EditLeadViewModel;
 
 namespace MyCrm.Web.Controllers
 {
@@ -25,7 +26,7 @@ namespace MyCrm.Web.Controllers
         {
             var model = await _leadService.FilterLeads(filter);
 
-            ViewBag["marketerList "] = await _userService.GetMarketerList();
+            ViewData["marketerList "] = await _userService.GetMarketerList();
 
             return View(model);
         }
@@ -83,11 +84,11 @@ namespace MyCrm.Web.Controllers
 
             switch (result)
             {
-                case EditLeadViewModel.EditLeadResult.Success:
+                case EditLeadResult.Success:
                     TempData[SuccessMessage] = "success";
                     return RedirectToAction("FilterLeads");
                     
-                case EditLeadViewModel.EditLeadResult.Error:
+                case EditLeadResult.Error:
                     TempData[ErrorMessage] = "shekast";
                     
                 
@@ -126,6 +127,40 @@ namespace MyCrm.Web.Controllers
             else
             {
                 TempData[ErrorMessage] = "amalait shekast";
+            }
+
+            return RedirectToAction("FilterLeads");
+        }
+        #endregion
+
+        #region Change State
+        [HttpPost]
+        public async Task<IActionResult> ChangeState(long leadId,int stateIndex)
+        {
+            var result = await _leadService.ChangeLeadState(leadId,stateIndex);
+            if (result)
+            {
+                TempData[SuccessMessage] = "amaliat movafaqiat";
+            }
+            else
+            {
+                TempData[ErrorMessage] = "";
+            }
+            return RedirectToAction("Filterleads");
+        }
+        #endregion
+
+        #region Close and win
+        public async Task<IActionResult> CloseAndWinLead(long leadId)
+        {
+            var result  =await _leadService.CloseAndWinLead(leadId);
+            if (result)
+            {
+                TempData[SuccessMessage] = "";
+            }
+            else
+            {
+                TempData[ErrorMessage] = "";
             }
 
             return RedirectToAction("FilterLeads");

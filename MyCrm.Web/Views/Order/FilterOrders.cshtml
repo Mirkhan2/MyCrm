@@ -1,11 +1,10 @@
-﻿@using MyCrm.Application.Convertor
+﻿@using MyCrm.Application.Convertors
 @using MyCrm.Application.Extensions
-@using MyCrm.Application.Static_Tools
+@using MyCrm.Application.StaticTools
 @model MyCrm.Domain.ViewModels.Orders.FilterOrderViewModel
 @{
     ViewData["Title"] = "لیست سفارشات";
 }
-
 
 @section custom_js
     {
@@ -168,6 +167,7 @@
                                         <div class="d-flex">
                                             <a asp-controller="Order" asp-action="EditOrder" asp-route-orderId="@order.OrderId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-edit text-white"></i></a>
                                             <a asp-controller="Order" asp-action="DeleteOrder" asp-route-orderId="@order.OrderId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash text-white"></i></a>
+                                            <a asp-controller="Task" asp-action="CreateTask" asp-route-orderId="@order.OrderId" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-tasks text-white"></i></a>
                                             <a onclick="OpenSelectMarketerModal('@order.OrderId')" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-search text-white"></i></a>
                                         </div>
                                     </td>
@@ -207,5 +207,4 @@
             </div>
         </form>
     </div>
-    <
 </div>

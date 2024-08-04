@@ -23,6 +23,7 @@ namespace MyCrm.IoC
             service.AddTransient<IProgramSetting, ProgramSetting>();
             service.AddTransient<IEventService, EventService>();
             service.AddTransient<ILeadService, LeadService>();
+            service.AddTransient<ITaskService, TaskService>();
 
 
             service.AddTransient<IUserRepository , UserRepository>();
@@ -30,6 +31,7 @@ namespace MyCrm.IoC
             service.AddTransient<ICompanyRepository , CompanyRepository>();
             service.AddTransient<IEventRepository , EventRepository>();
             service.AddTransient<ILeadRepository , LeadRepository>();
+            service.AddTransient<ITaskRepository , TaskRepository>();
             // service.AddTransient<I>
         }
     }

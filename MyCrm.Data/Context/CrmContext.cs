@@ -9,6 +9,8 @@ using MyCrm.Domain.Entities.Companies;
 using MyCrm.Domain.Entities.Events;
 using MyCrm.Domain.Entities.Leads;
 using MyCrm.Domain.Entities.Orders;
+using MyCrm.Domain.Entities.Tasks;
+using MyCrm.Domain.ViewModels.Actions;
 
 namespace MyCrm.Data.Context
 {
@@ -29,12 +31,15 @@ namespace MyCrm.Data.Context
         public DbSet<Company> Companies { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Lead> Leads { get; set; }
+        public DbSet<CrmTask> CrmTasks { get; set; }
+        public DbSet<MarketingAction> MarketingActions { get; set; }
+
+
 
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region Fluent
 
             #region Order Selected Marketer
 
@@ -71,8 +76,6 @@ namespace MyCrm.Data.Context
                 .WithMany(a => a.CollectionLeadCreatedBy)
                 .HasForeignKey(a => a.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            #endregion
 
             #endregion
         }

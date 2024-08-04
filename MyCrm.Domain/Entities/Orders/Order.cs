@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyCrm.Domain.Entities.Account;
+using MyCrm.Domain.Entities.Tasks;
 
 namespace MyCrm.Domain.Entities.Orders
 {
@@ -48,6 +49,8 @@ namespace MyCrm.Domain.Entities.Orders
 
         public Customer Customer { get; set; }
         public OrderSelectedMarketer OrderSelectedMarketer { get; set; }
+        public ICollection<CrmTask> CrmTasks { get; set; }
+
 
         #endregion
     }

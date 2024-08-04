@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MyCrm.Application.Interfaces;
+using MyCrm.Application.Security;
+using MyCrm.Domain.Entities.Account;
 using MyCrm.Domain.Entities.Leads;
 using MyCrm.Domain.Interfaces;
 using MyCrm.Domain.ViewModels.Leads;
 using MyCrm.Domain.ViewModels.Paging;
+using MyCrm.Domain.ViewModels.User;
 using static MyCrm.Domain.ViewModels.Leads.CreateLeadViewModel;
 using static MyCrm.Domain.ViewModels.Leads.EditLeadViewModel;
 
@@ -26,6 +29,7 @@ namespace MyCrm.Application.Services
             _userRepository = userRepository;
         }
 
+      
 
         #endregion
         public async Task<CreateLeadResult> CreateLead(CreateLeadViewModel leadViewModel,long userId)
@@ -124,6 +128,7 @@ namespace MyCrm.Application.Services
         public async Task<FilterLeadViewModel> FilterLeads(FilterLeadViewModel filter)
         {
             var query = await _leadRepository.GetLeadQueryable();
+            query = query.Include(a => a.Owner);
 
             query = query.Where(a => !a.IsDelete);
 
@@ -203,6 +208,78 @@ namespace MyCrm.Application.Services
             await _leadRepository.SaveChanges();
 
             return true;
+        }
+        public async Task<bool> ChangeLeadState(long leadId, int stateIndex)
+        {
+            var lead = await _leadRepository.GetLeadById(leadId);
+
+            if (lead == null)
+            {
+                return false; 
+            }
+
+            if (stateIndex == 0)
+            {
+                lead.LeadStatus = LeadStatus.Close;
+            }
+
+            if (stateIndex ==1)
+            {
+                lead.LeadStatus = LeadStatus.New;
+            }
+
+            if (stateIndex == 2)
+            {
+                lead.LeadStatus = LeadStatus.Active;
+            }
+           await _leadRepository.UpdateLead(lead);
+            await _leadRepository.SaveChanges();
+
+            return true;
+
+        }
+
+        public async  Task<bool> CloseAndWinLead(long leadId)
+        {
+            var lead = await _leadRepository.GetLeadById(leadId);
+            if (lead == null)
+            {
+                return false;
+            }
+            lead.LeadStatus = LeadStatus.Close;
+            lead.IsWin = true;
+           await _leadRepository.UpdateLead(lead);
+            await _leadRepository.SaveChanges();
+
+            var user = new User()
+            {
+                FirstName = lead.FirstName,
+                Password = PasswordHelper.EncodePasswordMd5(lead.Mobile),
+                LastName = lead.LastName,
+                UserName = Guid.NewGuid().ToString(),
+                Email = lead.Email,
+                MobilePhone = lead.Mobile,
+                IntroduceName = string.Empty,
+            };
+
+         
+
+            await _userRepository.AddUser(user);
+            await _userRepository.SaveChangeAsync();
+
+            var customer = new Customer()
+            {
+                CompanyName = lead.Company,
+                Job = lead.Topic,
+                UserId = user.UserId
+            };
+
+            await _userRepository.AddCustomer(customer);
+            await _userRepository.SaveChangeAsync();
+
+
+            return true;
+
         }
     }
 }

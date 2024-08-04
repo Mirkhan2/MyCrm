@@ -18,10 +18,8 @@ namespace MyCrm.Application.Interfaces
         Task<EditLeadViewModel> FillEditViewModel(long  leadId);
         Task<bool> DeleteLead(long leadId);
         Task<bool> SetLeadToMarketer(long leadId, long marketerId);
-
-
-
-
+        Task<bool> ChangeLeadState(long leadId, int  stateIndex);
+        Task<bool> CloseAndWinLead(long leadId);    
 
     }
 }

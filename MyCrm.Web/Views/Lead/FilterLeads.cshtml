@@ -1,6 +1,7 @@
 ﻿@using MyCrm.Application.Convertor
 @using MyCrm.Application.Extensions
 @using MyCrm.Domain.Entities.Account
+@using MyCrm.Domain.Entities.Leads;
 @using MyCrm.Domain.ViewModels.Leads
 @model MyCrm.Domain.ViewModels.Leads.FilterLeadViewModel
 @{
@@ -47,18 +48,10 @@
             $("#MarketerId2").val(e.value);
         }
 
-        function SelectOrderMarketerDone(response) {
-            if (response.status === "Success") {
-                ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
-                $("#basicModal").modal("hide");
-            }
-            else if (response.status === "Exist") {
-                ShowMessage("اعلان", "قبلا بازاریاب داشته است", "warning");
-                $("#basicModal").modal("hide");
-            } else {
-                ShowMessage("اعلان", "عملیات با شکست مواجه شد", "error");
-            }
+        function onSelectState(e) { 
+            $("#stateIndex-Id").val(e.value);
         }
+       
     </script>
 }
 
@@ -148,6 +141,8 @@
                             <td>
                                 <div class="d-flex">
                                     <button type="button" data-toggle="modal" data-target="#setToMarketer-@lead.LeadId" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-user text-white"></i></button>
+                                    <button type="button" data-toggle="modal" data-target="#changeState-@lead.LeadId" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-Star text-white"></i></button>
+                                    <a asp-controller="Lead" asp-action="CloseAndWinLead" asp-route-leadId="@lead.LeadId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-star-o text-white"></i></a>
                                     <a asp-controller="Lead" asp-action="EditLead" asp-route-leadId="@lead.LeadId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-edit text-white"></i></a>
                                     <a asp-controller="Lead" asp-action="DeleteLead" asp-route-leadId="@lead.LeadId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                 </div>
@@ -178,6 +173,40 @@
                                                                 {
                                                                     <option value="@marketer.UserId">@marketer.User.GetUserShowName()</option>
                                                                 }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success light">ثبت</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal fade" id="changeState-@lead.LeadId">
+                                    <div class="modal-dialog" role="document">
+
+                                        <form asp-action="ChangeState" method="post" id="ChangeState-form">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tagur vaziat بازاریاب</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" id="content">
+                                                    <input type="hidden" name="LeadId" value="@lead.LeadId" />
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label>انتخاب Vaziat</label>
+
+                                                            <input type="hidden" name="stateIndex" id="stateIndexId" />
+
+                                                            <select class="form-control" onchange="onclickSelect(this)"asp-items="@(Html.GetEnumSelectList<LeadStatus>())">
+                                                               
                                                             </select>
                                                         </div>
                                                     </div>
