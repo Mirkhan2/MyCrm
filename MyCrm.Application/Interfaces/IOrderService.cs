@@ -19,6 +19,7 @@ namespace MyCrm.Application.Interfaces
         Task<AddOrderSelectMarketerResult> AddOrderSelectMarketer(OrderSelectMarketerViewModel marketerViewModel, long userId);
         Task<FilterOrderSelectedMarketer> FilterOrderSelectedMarketer(FilterOrderSelectedMarketer filter);
         Task<bool> DeleteOrderSelectedMarketer(long orderId);
+        Task<bool> ChangeOrderToFinish(long orderId,long taskId);
     }
 }
  

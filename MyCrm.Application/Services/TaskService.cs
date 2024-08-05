@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using MyCrm.Application.Interfaces;
 using MyCrm.Domain.Entities.Tasks;
 using MyCrm.Domain.Interfaces;
+using MyCrm.Domain.ViewModels.Actions;
+using MyCrm.Domain.ViewModels.MarketingAction;
 using MyCrm.Domain.ViewModels.Paging;
 using MyCrm.Domain.ViewModels.Tasks;
 using static MyCrm.Domain.ViewModels.Tasks.EditTaskViewModel;
@@ -22,6 +24,7 @@ namespace MyCrm.Application.Services
         {
             _taskRepository = taskRepository;
         }
+
         #endregion
         public async Task<CreateTaskResult> CreateTask(CreateTaskViewModel taskViewModel)
         {
@@ -33,6 +36,7 @@ namespace MyCrm.Application.Services
                 OrderId = taskViewModel.OrderId,
                 Priority = taskViewModel.Priority,
                 UntilDate = taskViewModel.UntilDate,
+                TaskStatus = taskViewModel.TaskStatus
 
             };
             await _taskRepository.AddTask(task);
@@ -66,12 +70,11 @@ namespace MyCrm.Application.Services
             task.Description = taskViewModel.Description;
             task.Priority = taskViewModel.Priority;
             task.UntilDate = taskViewModel.UntilDate;
-            task.TaskId = taskViewModel.TaskId;
-            task.MarketerId = taskViewModel.MarketerId;
-            task.OrderId = taskViewModel.OrderId;
+            task.TaskStatus = taskViewModel.TaskStatus;
 
             await _taskRepository.UpdateTask(task);
             await _taskRepository.SaveChange();
+
             return EditTaskResult.Success;
         }
 
@@ -95,8 +98,33 @@ namespace MyCrm.Application.Services
                 Priority = task.Priority,
                 TaskId = task.TaskId,
                 UntilDate = task.UntilDate,
+                TaskStatus = task.TaskStatus
 
             };
+            return result;
+        }
+
+        public async Task<TaskDetailViewModel> FillTaskDetailViewModel(long taskId)
+        {
+            var taskQueryable = await _taskRepository.GetTasksQueryable();
+
+            var task = await taskQueryable
+                .Include(a => a.Marketer)
+                .ThenInclude(a => a.User)
+                .FirstOrDefaultAsync(a => a.TaskId == taskId);
+
+            if (task == null)
+            {
+                return null;
+            }
+
+            var result = new TaskDetailViewModel()
+            {
+                Task = task,
+                ActionCount = _taskRepository.GetActionQueryable().Result.Count(a => a.CrmTaskId == taskId),
+               // MarketingActions = await _taskRepository.GetActionQueryable().Result.Where(a => a.CrmTaskId == taskId && !a.IsDelete).ToListAsync()
+            };
+
             return result;
         }
 
@@ -150,6 +178,40 @@ namespace MyCrm.Application.Services
 
             };
             return result;
+        }
+
+        public async Task<CreateMarketingActionResult> CreateMarketingActionResult(CreateMarketingActionViewModel action)
+        {
+            var task = await _taskRepository.GetTaskById(action.CrmTaskId);
+            if (task == null)
+            {
+                return Domain.ViewModels.MarketingAction.CreateMarketingActionResult.Fail;
+            }
+
+            var newAction = new MarketingAction()
+            {
+                Description = action.Description,
+                CrmTaskId = action.CrmTaskId,
+
+            };
+            await _taskRepository.AddAction(newAction);
+            await _taskRepository.SaveChange();
+
+            return Domain.ViewModels.MarketingAction.CreateMarketingActionResult.Success;
+        }
+
+        public async Task<bool> ChangeTaskState(long taskId, CrmTaskStatus crmTaskStatus)
+        {
+            var task = await _taskRepository.GetTaskById(taskId);
+            if (task == null)
+            {
+                return false;
+            }
+            task.TaskStatus = crmTaskStatus;
+            await _taskRepository.UpdateTask(task);
+            await _taskRepository.SaveChange();
+
+            return true;
         }
     }
 }

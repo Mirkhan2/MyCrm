@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MyCrm.Domain.Entities.Account;
 using MyCrm.Domain.Entities.Orders;
+using MyCrm.Domain.Entities.Tasks;
 
 namespace MyCrm.Domain.ViewModels.Tasks
 {
@@ -25,7 +26,8 @@ namespace MyCrm.Domain.ViewModels.Tasks
         [Display(Name = "تاریخ انجام تسک")]
         public DateTime UntilDate { get; set; }
 
-      
+
+        public CrmTaskStatus TaskStatus { get; set; }
 
 
         public enum EditTaskResult

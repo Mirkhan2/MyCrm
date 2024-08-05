@@ -18,11 +18,13 @@ namespace MyCrm.Application.Services
 {
     public class UserService : IUserService
     {
+        #region ctor
         private readonly IUserRepository _userRepository;
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
+        #endregion
 
         public async Task<AddMarketerResult> AddMarketer(AddMarketerViewModel marketer, IFormFile imageProfile)
         {

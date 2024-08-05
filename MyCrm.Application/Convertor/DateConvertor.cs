@@ -16,6 +16,18 @@ namespace MyCrm.Application.Convertor
                 persianCalender.GetMonth(time).ToString("") + "/" +
                 persianCalender.GetDayOfMonth(time).ToString("00");
         }
+        public static List<string> GetContPastMonths(this DateTime time , int count )
+        {
+
+            var result = new List<string>();
+
+
+            return result;
+
+        }
+
+        pu
+
         public static DateTime ToMiladiDate(this string date)
         {
             var splitedDate = date.Split('/');

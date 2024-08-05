@@ -24,7 +24,6 @@ namespace MyCrm.Data.Repository
         #endregion
         public async Task<Company> GetCompanyById(long companyId)
         {
-            return null;
             return await _context.Companies.FirstOrDefaultAsync(a => a.CompanyId == companyId);
             //return await _context.FindAsync(companyId);
         }
@@ -41,7 +40,7 @@ namespace MyCrm.Data.Repository
 
         public async Task UpdateCompany(Company company)
         {
-        _context.Companies.Update(company);
+         _context.Companies.Update(company);
         }
 
         public async Task<IQueryable<Company>> GetCompanyQueryable()

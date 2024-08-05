@@ -9,6 +9,7 @@ using MyCrm.Domain.Entities.Companies;
 using MyCrm.Domain.Entities.Events;
 using MyCrm.Domain.Entities.Leads;
 using MyCrm.Domain.Entities.Orders;
+using MyCrm.Domain.Entities.Predict;
 using MyCrm.Domain.Entities.Tasks;
 using MyCrm.Domain.ViewModels.Actions;
 
@@ -33,6 +34,8 @@ namespace MyCrm.Data.Context
         public DbSet<Lead> Leads { get; set; }
         public DbSet<CrmTask> CrmTasks { get; set; }
         public DbSet<MarketingAction> MarketingActions { get; set; }
+        public DbSet<PredictMarketer> PredictMarketers { get; set; }
+
 
 
 

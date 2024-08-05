@@ -38,6 +38,9 @@ namespace MyCrm.Domain.Entities.Orders
         public bool IsFinish { get; set; } = false;
 
         public long CustomerId { get; set; }
+        public DateTime? EndDate { get; set; }
+
+        public int PredictDay{ get; set; }
 
 
         [Display(Name = "نوع سفارش")]

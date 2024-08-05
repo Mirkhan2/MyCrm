@@ -144,7 +144,7 @@
                                     <button type="button" data-toggle="modal" data-target="#changeState-@lead.LeadId" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-Star text-white"></i></button>
                                     <a asp-controller="Lead" asp-action="CloseAndWinLead" asp-route-leadId="@lead.LeadId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-star-o text-white"></i></a>
                                     <a asp-controller="Lead" asp-action="EditLead" asp-route-leadId="@lead.LeadId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-edit text-white"></i></a>
-                                    <a asp-controller="Lead" asp-action="DeleteLead" asp-route-leadId="@lead.LeadId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                    <a asp-controller="Lead" asp-action="DeleteLead" asp-route-leadId="@lead.LeadId" onclick="ConfirmBtn(ev)" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                 </div>
                             </td>
                         </tr>

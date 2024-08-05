@@ -1,6 +1,6 @@
-﻿@using MyCrm.Application.Convertors
+﻿@using MyCrm.Application.Convertor
 @using MyCrm.Application.Extensions
-@using MyCrm.Application.StaticTools
+@using MyCrm.Application.Static_Tools
 @model MyCrm.Domain.ViewModels.Orders.FilterOrderViewModel
 @{
     ViewData["Title"] = "لیست سفارشات";
@@ -123,6 +123,7 @@
                         <tr role="row">
                             <th>نام مشتری</th>
                             <th>عنوان</th>
+                            <th>Datepredict</th>
                             <th>تاریخ</th>
                             <th>وضعیت</th>
                             <th>عملیات</th>
@@ -139,6 +140,9 @@
                                     </td>
                                     <td>
                                         @order.Title
+                                    </td>
+                                    <td>
+                                        @order.PredictDay
                                     </td>
                                     <td>
                                         <p>@order.CreateDate.ToShamsiDate()</p>

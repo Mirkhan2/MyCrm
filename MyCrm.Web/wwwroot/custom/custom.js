@@ -5,7 +5,7 @@ function fillPageId(id) {
     $('#filter-search').submit();
 }
 
-function ShowMessage(title,text,theme) {
+function ShowMessage(title, text, theme) {
     window.createNotification({
         closeOnClick: true,
         displayCloseButton: false,
@@ -29,21 +29,42 @@ $("[ImageInput]").change(function () {
     }
 });
 
+
 var datePickers = $('.datePicker-custom');
+
 if (datePickers.length) {
+
     datePickers.each(function (index, value) {
         var pickerId = $(value).attr("id");
-        console.log(pickerId);
-        kameDatepicker(pickerId);
-        {
-            forceFarsiDigits: true,
-                markToday  : true,
-                highliSelectedDay : true,
-                markHolidays : true,
-                sync : true,
-                    gotoToday : true
-        });
+        kamaDatepicker(pickerId,
+            {
+                forceFarsiDigits: true,
+                markToday: true,
+                markHolidays: true,
+                highlightSelectedDay: true,
+                sync: true,
+                gotoToday: true,
+            });
     });
-  
 }
+
+function ConfirmBtn(ev) {
+    ev.preventDefault();
+    var urlRedirect = ev.currentTarget.getAttribute('href');
+    Swal.fire({
+        title: 'اعلان',
+        text: "آیا از انجام این عملیات اطمینان دارید؟",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'بله',
+        cancelButtonText: 'خیر'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = urlRedirect;
+        }
+    });
+}
+
 

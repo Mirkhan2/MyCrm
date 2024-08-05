@@ -27,6 +27,7 @@ namespace MyCrm.Domain.ViewModels.Orders
         public long CustomerId { get; set; }
         [Display(Name = "نوع سفارش")]
         public OrderType OrderType { get; set; }
+        public int PredictDay { get; set; }
     }
     public enum EditOrderResult
     {

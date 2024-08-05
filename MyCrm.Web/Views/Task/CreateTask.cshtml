@@ -1,10 +1,11 @@
-﻿@model MyCrm.Domain.ViewModels.Task.CreateTaskViewModel
+﻿@using MyCrm.Domain.Entities.Tasks
+@model MyCrm.Domain.ViewModels.Tasks.CreateTaskViewModel
 @{
     ViewData["Title"] = "ساخت تسک";
 }
 
 @section custom_js
-{
+    {
     <partial name="_JqueryValidators" />
 }
 
@@ -18,10 +19,10 @@
             <div class="card-body">
                 <div class="basic-form">
                     <form method="post" id="filter-search">
-                        <input type="hidden" asp-for="OrderId"/>
+                        <input type="hidden" asp-for="OrderId" />
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label>عنوان </label>
+                                <label>اولویت </label>
                                 <input asp-for="Priority" type="number" class="form-control">
                                 <span asp-validation-for="Priority" class="text-danger"></span>
                             </div>
@@ -30,11 +31,11 @@
                                 <input asp-for="UntilDate" class="form-control datePicker-custom" autocomplete="off">
                                 <span asp-validation-for="UntilDate" class="text-danger"></span>
                             </div>
-                            @*<div class="form-group col-md-12">
-                                <label>نوع رویداد</label>
-                                <select asp-for="Content" asp-items="@(Html.GetEnumSelectList<EventType>())" class="form-control"></select>
-                                <span asp-validation-for="EventType" class="text-danger"></span>
-                            </div>*@
+                            <div class="form-group col-md-12">
+                                <label>وضعیت</label>
+                                <select asp-for="TaskStatus" asp-items="@(Html.GetEnumSelectList<CrmTaskStatus>())" class="form-control"></select>
+                                <span asp-validation-for="TaskStatus" class="text-danger"></span>
+                            </div>
                             <div class="form-group col-md-12">
                                 <label>توضیحات</label>
                                 <textarea asp-for="Description" class="form-control"></textarea>
@@ -50,4 +51,3 @@
         </div>
     </div>
 </div>
-

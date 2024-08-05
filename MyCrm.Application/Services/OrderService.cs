@@ -11,6 +11,7 @@ using MyCrm.Application.Interfaces;
 using MyCrm.Application.Security;
 using MyCrm.Application.Static_Tools;
 using MyCrm.Domain.Entities.Orders;
+using MyCrm.Domain.Entities.Tasks;
 using MyCrm.Domain.Interfaces;
 using MyCrm.Domain.ViewModels.Orders;
 using MyCrm.Domain.ViewModels.Paging;
@@ -21,9 +22,12 @@ namespace MyCrm.Application.Services
     {
         #region Ctor
         private readonly IOrderRepository _orderRepository;
-        public OrderService(IOrderRepository orderRepository)
+        private readonly ITaskService _TaskService;
+        public OrderService(IOrderRepository orderRepository, ITaskService taskService)
         {
             _orderRepository = orderRepository;
+            _TaskService = taskService;
+
         }
         #endregion
         public async Task<CreateOrderResult> CreateOrder(CreateOrderViewModel orderViewModel, IFormFile imageName)
@@ -45,7 +49,7 @@ namespace MyCrm.Application.Services
                 //  OrderType = orderViewModel.OrderType,
                 Title = orderViewModel.Title,
                 CustomerId = orderViewModel.CustomerId,
-
+                PredictDay = orderViewModel.PredictDay,
                 //CustomerId = orderViewModel.CustomerId,
                 //OrderId = orderViewModel.OrderId,
 
@@ -129,6 +133,7 @@ namespace MyCrm.Application.Services
             order.Description = orderViewModel.Description;
             order.OrderType = orderViewModel.OrderType;
             order.Title = orderViewModel.Title;
+            order.PredictDay = orderViewModel.PredictDay;
 
             //if (!string.IsNullOrEmpty(orderImageName))
             //{
@@ -183,7 +188,8 @@ namespace MyCrm.Application.Services
                 ImageName = order.ImageName,
                 CustomerId = order.CustomerId,
                 // IsFinish = order.IsFinish,
-                OrderType = order.OrderType
+                OrderType = order.OrderType,
+                PredictDay = order.PredictDay,
                 // IsSale = order.IsSale
 
             };
@@ -285,6 +291,26 @@ namespace MyCrm.Application.Services
             
             await _orderRepository.DeleteOrderSelectedMarketer(orderSelected);
             await _orderRepository.SaveChange();
+            return true;
+        }
+
+        public async Task<bool> ChangeOrderToFinish(long orderId,long taskId)
+        {
+            var order = await _orderRepository.GetOrderById(orderId);
+
+            var changeStateResult = await _TaskService.ChangeTaskState(taskId, CrmTaskStatus.Close);
+
+            if (order == null || !changeStateResult)
+            {
+                return false;
+            }
+            order.EndDate = DateTime.Now;
+            order.IsFinish = true;
+            await _orderRepository.UpdateOrder(order);
+
+            await _orderRepository.SaveChange();
+
+            
             return true;
         }
     }

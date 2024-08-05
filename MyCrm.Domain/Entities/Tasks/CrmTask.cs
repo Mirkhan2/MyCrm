@@ -29,6 +29,7 @@ namespace MyCrm.Domain.Entities.Tasks
 
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public bool IsDelete { get; set; } = false;
+        public CrmTaskStatus TaskStatus { get; set; }
 
 
 
@@ -41,7 +42,7 @@ namespace MyCrm.Domain.Entities.Tasks
         #endregion
     }
 
-    public enum TaskStatus
+    public enum CrmTaskStatus
     {
         [Display(Name = "درحال پیگیری")]
         Active,

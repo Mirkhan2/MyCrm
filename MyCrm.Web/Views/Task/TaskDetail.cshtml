@@ -1,0 +1,86 @@
+﻿@using MyCrm.Application.Convertor
+@using MyCrm.Application.Extensions
+@using MyCrm.Domain.Entities.Tasks
+@model MyCrm.Domain.ViewModels.Tasks.TaskDetailViewModel
+@{
+    ViewData["Title"] = "جزئیات تسک";
+}
+
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card text-white bg-primary">
+            <div class="card-header">
+                <h5 class="card-title text-white">اطلاعات تسک</h5>
+            </div>
+            <div class="card-body mb-0">
+                <p class="card-text">توضیحات : @Model.Task.Description</p>
+                <p class="card-text">اولویت : @Model.Task.Priority</p>
+                <p class="card-text">تاریخ ثبت : @Model.Task.CreateDate.ToShamsiDate()</p>
+                <p class="card-text">تاریخ انجام : @Model.Task.UntilDate.ToShamsiDate()</p>
+                <p class="card-text">وضعیت : @Model.Task.TaskStatus.GetEnumDisplayName()</p>
+                <p class="card-text">کاربر : @Model.Task.Marketer.User.GetUserShowName()</p>
+            </div>
+        </div>
+        @if (Model.Task.TaskStatus != CrmTaskStatus.Close)
+        {
+            <a class="btn btn-success btn-block" onclick="ConfirmBtn(event)" asp-controller="Task" asp-action="ChangeTaskStateToClose" asp-route-taskId="@Model.Task.TaskId">بستن تسک</a>
+        }
+        @if (Model.Task.OrderId != null && Model.Task.TaskStatus == CrmTaskStatus.Active)
+        {
+            <a class="btn btn-success btn-block "onclick=" ConfirmBtn(event)"asp-controller="Task" asp-action="FinishOrderMarketing" asp-route-taskId="@Model.Task.TaskId" asp-route-orderId="@Model.Task.OrderId.Value">etmam bazaryabi</a>
+        }
+        <a class="btn btn-info btn-block" asp-controller="MarketingAction" asp-action="CreateAction" asp-route-taskId="@Model.Task.TaskId">افزودن عملیات جدید</a>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="widget-stat card bg-warning">
+            <div class="card-body p-4">
+                <div class="media">
+                    <span class="mr-3">
+                        <i class="la la-user"></i>
+                    </span>
+                    <div class="media-body text-white">
+                        <p class="mb-1">کل عملیات های انجام شده</p>
+                        <h3 class="text-white">@Model.ActionCount</h3>
+                        @*<small>50٪ افزایش در 25 روز</small>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xl-4 col-lg-12">
+        <div class="card">
+            <div class="card-header border-0 pb-0">
+                <h4 class="card-title">تایم لاین عملیات های انجام شده</h4>
+            </div>
+            <div class="card-body">
+                <div id="DZ_W_TimeLine1" class="widget-timeline dz-scroll style-1 ps ps--active-y" style="height:370px;">
+                    <ul class="timeline">
+                        @if (Model.MarketingActions.Any() && Model.MarketingActions != null)
+                        {
+                            @foreach (var action in Model.MarketingActions)
+                            {
+                                <li>
+                                    <div class="timeline-badge primary"></div>
+                                    <a class="timeline-panel text-muted" href="#">
+                                        <span>@action.CreateDate.ToShamsiDate()</span>
+                                        @Html.Raw(action.Description)
+                                    </a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+
+                        }
+
+                    </ul>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 370px; left: 254px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 236px;"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

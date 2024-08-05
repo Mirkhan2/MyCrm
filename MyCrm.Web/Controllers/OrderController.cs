@@ -15,11 +15,13 @@ namespace MyCrm.Web.Controllers
 
         private readonly IOrderService _orderService;
         private readonly IUserService _userService;
+        private readonly IPredictService _predictService;
 
-        public OrderController(IOrderService orderService, IUserService userService)
+        public OrderController(IOrderService orderService, IUserService userService,IPredictService predictService)
         {
             _orderService = orderService;
             _userService = userService;
+            _predictService = predictService;
         }
 
         #endregion
@@ -138,6 +140,8 @@ namespace MyCrm.Web.Controllers
             var model = new OrderSelectMarketerViewModel { OrderId = orderId };
 
             ViewBag.Marketers = await _userService.GetMarketerList();
+
+            ViewBag.MarketerPredict = await _predictService.GetMarketerPredict();
 
             return PartialView("_SelectMarketerPartial", model);
         }

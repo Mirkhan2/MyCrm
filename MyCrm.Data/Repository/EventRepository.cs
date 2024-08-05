@@ -30,9 +30,8 @@ namespace MyCrm.Data.Repository
 
         public async Task<IQueryable<Event>> GetEventsQueryAble()
         {
-          //  return null;
 
-             return _context.Events.AsQueryable();
+             return  _context.Events.AsQueryable();
         
         }
 
