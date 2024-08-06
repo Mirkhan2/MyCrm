@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyCrm.Application.Extensions;
 using MyCrm.Application.Interfaces;
+using MyCrm.Application.Convertor;
 
 namespace MyCrm.Web.Controllers
 {
@@ -42,6 +43,7 @@ namespace MyCrm.Web.Controllers
 
         public async Task<IActionResult> GetStringPastsMonth(int count)
         {
+
             return Json(Enumerable.Reverse(DateTime.Now.GetContPastMonths(count)));
         }
     }

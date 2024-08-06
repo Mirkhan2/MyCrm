@@ -14,5 +14,6 @@ namespace MyCrm.Domain.ViewModels
         public int CompanyCount { get; set; }
         public Entities.Account.User SelfUser { get; set; }
         public int UserOpenLeadCount { get; set; }
+        public List<int> OrderCountPerMonth { get; set; }
     }
 }

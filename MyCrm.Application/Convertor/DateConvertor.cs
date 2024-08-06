@@ -11,35 +11,90 @@ namespace MyCrm.Application.Convertor
     {
         public static string ToShamsiDate(this DateTime time)
         {
-             var persianCalender = new PersianCalendar();
-            return persianCalender.GetYear(time) + "/" +
-                persianCalender.GetMonth(time).ToString("") + "/" +
-                persianCalender.GetDayOfMonth(time).ToString("00");
-        }
-        public static List<string> GetContPastMonths(this DateTime time , int count )
-        {
+            var persianCalendar = new PersianCalendar();
+            return persianCalendar.GetYear(time) + "/" +
+                   persianCalendar.GetMonth(time).ToString("00") + "/" +
+                   persianCalendar.GetDayOfMonth(time).ToString("00");
 
+        }
+
+        public static List<string> GetContPastMonths(this DateTime time, int count)
+        {
             var result = new List<string>();
 
+            for (int i = 0; i < count; i++)
+            {
+                result.Add(time.AddMonths(-i).GetShamsiMonthName());
+            }
 
             return result;
-
         }
 
-        pu
+        public static string GetShamsiMonthName(this DateTime date)
+        {
+            var persianCalendar = new PersianCalendar();
+
+            int intMonth = persianCalendar.GetMonth(date);
+
+            var result = "";
+
+            switch (intMonth)
+            {
+                case 1:
+                    result = "فروردین";
+                    break;
+                case 2:
+                    result = "اردیبهشت";
+                    break;
+                case 3:
+                    result = "خرداد";
+                    break;
+                case 4:
+                    result = "تیر";
+                    break;
+                case 5:
+                    result = "مرداد";
+                    break;
+                case 6:
+                    result = "شهریور";
+                    break;
+                case 7:
+                    result = "مهر";
+                    break;
+                case 8:
+                    result = "آبان";
+                    break;
+                case 9:
+                    result = "آذر";
+                    break;
+                case 10:
+                    result = "دی";
+                    break;
+                case 11:
+                    result = "بهمن";
+                    break;
+                case 12:
+                    result = "اسفند";
+                    break;
+                default:
+                    result = "";
+                    break;
+            }
+
+            return result;
+        }
 
         public static DateTime ToMiladiDate(this string date)
         {
             var splitedDate = date.Split('/');
+
             int year = int.Parse(splitedDate[0]);
             int month = int.Parse(splitedDate[1]);
             int day = int.Parse(splitedDate[2]);
 
-            DateTime thisDate = new DateTime(year, month, day,new PersianCalendar());
+            DateTime thisDate = new DateTime(year, month, day, new PersianCalendar());
 
             return thisDate;
-
-
         }
     }
 }
