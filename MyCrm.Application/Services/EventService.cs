@@ -12,7 +12,7 @@ using MyCrm.Application.Convertor;
 using MyCrm.Application.Extensions;
 using MyCrm.Application.Interfaces;
 using MyCrm.Application.Security;
-using MyCrm.Application.Static_Tools;
+using MyCrm.Domains.Interfaces;
 using MyCrm.Data.Repository;
 using MyCrm.Domain.Entities.Account;
 using MyCrm.Domain.Entities.Events;
