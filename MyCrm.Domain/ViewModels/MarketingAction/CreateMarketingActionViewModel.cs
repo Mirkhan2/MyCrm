@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace MyCrm.Domain.ViewModels.MarketingAction
 {
-    public class CreateMarketingActionViewModel
-    {
-        public long CrmTaskId { get; set; }
-        public string Description { get; set; }
+    //public class CreateMarketingActionViewModel
+    //{
+    //    public long CrmTaskId { get; set; }
+    //    public string Description { get; set; }
 
 
-    }
-    public enum CreateMarketingActionResult {  
-        Success, Fail
-    }
+    //}
+    //public enum CreateMarketingActionResult {  
+    //    Success, Fail
+    //}
 
 }

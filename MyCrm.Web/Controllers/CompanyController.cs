@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyCrm.Application.Interfaces;
-using MyCrm.Domain.Interfaces;
-using MyCrm.Domain.ViewModels.Company;
+using MyCrm.Domains.ViewModels.Company;
 
 namespace MyCrm.Web.Controllers
 {
@@ -15,6 +14,7 @@ namespace MyCrm.Web.Controllers
             _companyService = companyService;
         }
         #endregion
+
         #region list
         public async Task<IActionResult> FilterCompanies(FilterCompanyViewModel filter)
         {
@@ -29,16 +29,16 @@ namespace MyCrm.Web.Controllers
         {
 
             return View();
-           // ViewBag.company = await _companyService.getc
+            // ViewBag.company = await _companyService.getc
         }
         [HttpPost]
         public async Task<IActionResult> CreateCompany(CreateCompanyViewModel companyViewModel)
         {
-          
+
             ViewBag.company = await _companyService.CreateCompany(companyViewModel);
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-               // TempData[WarningMessage] = "1;1;";
+                // TempData[WarningMessage] = "1;1;";
                 return View(companyViewModel);
             }
 
@@ -48,12 +48,11 @@ namespace MyCrm.Web.Controllers
             {
                 case CreateCompanyResult.Success:
 
-                  //  TempData[SuccessMessage] = "1;1;";
+                    //  TempData[SuccessMessage] = "1;1;";
                     return RedirectToAction("FilterCompanies");
-                    break;
                 case CreateCompanyResult.Error:
 
-                   // TempData[ErrorMessage] = "1;1;";
+                    // TempData[ErrorMessage] = "1;1;";
                     break;
                 default:
                     break;
@@ -71,7 +70,7 @@ namespace MyCrm.Web.Controllers
             {
                 return NotFound();
             }
-          //  ViewBag.company = await _companyService.GetCompanyForEdit(res.Id);
+            //  ViewBag.company = await _companyService.GetCompanyForEdit(res.Id);
             return View(res);
         }
         [HttpPost]
@@ -88,10 +87,10 @@ namespace MyCrm.Web.Controllers
             {
                 case EditCompanyResult.Success:
                     return RedirectToAction("");
-                   
+
                 case EditCompanyResult.Error:
                     break;
-               
+
             }
             return View(companyViewModel);
         }
@@ -99,7 +98,7 @@ namespace MyCrm.Web.Controllers
         #region Delete Company
         public async Task<IActionResult> DeleteCompany(long companyId)
         {
-            var result  = await _companyService.DeleteCompany(companyId);
+            var result = await _companyService.DeleteCompany(companyId);
             if (result)
             {
                 return RedirectToAction("");

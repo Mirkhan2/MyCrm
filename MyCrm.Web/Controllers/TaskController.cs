@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using MyCrm.Application.Extensions;
 using MyCrm.Application.Interface;
 using MyCrm.Application.Interfaces;
-using MyCrm.Domain.ViewModels.Tasks;
-using static MyCrm.Domain.ViewModels.Tasks.EditTaskViewModel;
+using MyCrm.Domains.ViewModels.Tasks;
+using static MyCrm.Domains.ViewModels.Tasks.EditTaskViewModel;
 
 namespace MyCrm.Web.Controllers
 {
@@ -127,7 +127,7 @@ namespace MyCrm.Web.Controllers
         #region CHange Task State
         public async Task<IActionResult> ChangeTaskStateToClose(long taskId)
         {
-            var result = await _taskService.ChangeTaskState(taskId , Domain.Entities.Tasks.CrmTaskStatus.Close);
+            var result = await _taskService.ChangeTaskState(taskId , Domains.Entities.Tasks.CrmTaskStatus.Close);
 
             if (result)
             {

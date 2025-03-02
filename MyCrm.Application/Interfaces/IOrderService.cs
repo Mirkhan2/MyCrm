@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using MyCrm.Domain.ViewModels.Orders;
+using MyCrm.Domains.ViewModels.Orders;
 
 namespace MyCrm.Application.Interfaces
 {

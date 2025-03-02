@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyCrm.Domain.Entities.Tasks;
-using MyCrm.Domain.ViewModels.MarketingAction;
-using MyCrm.Domain.ViewModels.Tasks;
-using static MyCrm.Domain.ViewModels.Tasks.EditTaskViewModel;
+using MyCrm.Domains.Entities.Tasks;
+using MyCrm.Domains.ViewModels.MarketingAction;
+using MyCrm.Domains.ViewModels.Tasks;
+using static MyCrm.Domains.ViewModels.Tasks.EditTaskViewModel;
 
 namespace MyCrm.Application.Interfaces
 {
@@ -26,7 +26,6 @@ namespace MyCrm.Application.Interfaces
 
         #endregion
         Task<bool> ChangeTaskState(long taskId, CrmTaskStatus crmTaskStatus);
-
 
     }
 }

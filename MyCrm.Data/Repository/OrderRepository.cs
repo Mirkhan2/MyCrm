@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyCrm.Data.Context;
-using MyCrm.Domain.Entities.Orders;
-using MyCrm.Domain.Interfaces;
+using MyCrm.Domains.Entities.Orders;
+using MyCrm.Domains.Interfaces;
 
 namespace MyCrm.Data.Repository
 {

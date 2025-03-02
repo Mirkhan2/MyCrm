@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyCrm.Application.Extensions;
 using MyCrm.Application.Interfaces;
-using MyCrm.Domain.ViewModels.Events;
+using MyCrm.Domains.ViewModels.Events;
 
 namespace MyCrm.Web.Controllers
 {
@@ -33,7 +33,7 @@ namespace MyCrm.Web.Controllers
                     TempData[SuccessMessage] = "";
                     return RedirectToAction("CreateEvent");
                   
-                case AddEventResult.Error:
+                case AddEventResult.Fail:
                     TempData[ErrorMessage] = " ";
                     break;
                
@@ -47,7 +47,7 @@ namespace MyCrm.Web.Controllers
         #region Filter Event
         public async Task<IActionResult> FilterEvents(FilterEventViewModel filter)
         {
-            var result = await _eventService.FilterEvent(filter);
+            var result = await _eventService.FilterEvents(filter);
             return View(result);
         }
         //   public Task<IActionResult> FilterOrders(Filer)
@@ -91,7 +91,7 @@ namespace MyCrm.Web.Controllers
                 case EditEventResult.Success:
                     TempData[SuccessMessage]= " ";
                     return RedirectToAction("FilterEvents");
-                case EditEventResult.Error:
+                case EditEventResult.Fail:
                     TempData[ErrorMessage]= " ";
                     break;
                

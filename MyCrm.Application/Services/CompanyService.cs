@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MyCrm.Application.Interfaces;
 using MyCrm.Application.Security;
-using MyCrm.Application.Static_Tools;
+using MyCrm.Application.StaticTools;
 using MyCrm.Data.Repository;
-using MyCrm.Domain.Entities.Companies;
-using MyCrm.Domain.Interfaces;
-using MyCrm.Domain.ViewModels.Company;
-using MyCrm.Domain.ViewModels.Paging;
+using MyCrm.Domains.Entities.Companies;
+using MyCrm.Domains.Interfaces;
+using MyCrm.Domains.ViewModels.Company;
+using MyCrm.Domains.ViewModels.Paging;
 using SixLabors.ImageSharp;
 
 namespace MyCrm.Application.Services
@@ -84,7 +84,7 @@ namespace MyCrm.Application.Services
             #region paging
 
             var pager = Pager.build(filter.PageId, await query.CountAsync(), filter.TakeEntity,
-                filter.HowManyShowPageafterAndBefore);
+                filter.HowManyShowPageAfterAndBefore);
 
             var allEntities = await query.Paging(pager).ToListAsync();
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyCrm.Domain.Entities.Account;
+using MyCrm.Domains.Entities.Account;
 
 namespace MyCrm.Application.Interfaces
 {
@@ -11,7 +11,6 @@ namespace MyCrm.Application.Interfaces
     {
         Task<bool> ProcessMarketerPredict();
         Task DeleteAllMarketerPredict();
-
         Task<Marketer> GetMarketerPredict();
 
     }

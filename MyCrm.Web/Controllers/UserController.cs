@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyCrm.Application.Interface;
 using MyCrm.Application.Interfaces;
-using MyCrm.Domain.ViewModels.User;
-using static MyCrm.Domain.ViewModels.User.AddCustomerViewModel;
+using MyCrm.Domains.ViewModels.User;
 
 namespace MyCrm.Web.Controllers
 {
@@ -73,22 +72,20 @@ namespace MyCrm.Web.Controllers
 
         #region CreateMarketer
 
-        public async Task<IActionResult> CreateMarketer()
+        public IActionResult CreateMarketer()
         {
             return View();
         }
 
-
-
         [HttpPost]
-        public async Task<IActionResult> CreateMarketer(AddMarketerViewModel marketer, IFormFile imageProfile)
+        public IActionResult CreateMarketer(AddMarketerViewModel marketer, IFormFile imageProfile)
         {
             if (!ModelState.IsValid)
             {
                 return View(marketer);
             }
 
-            var res = await _userService.AddMarketer(marketer, imageProfile);
+            var res = _userService.AddMarketer(marketer, imageProfile).Result;
 
             switch (res)
             {
@@ -209,7 +206,7 @@ namespace MyCrm.Web.Controllers
 
         #region Select Company To CUstomer
         [HttpPost]
-        public async Task<IActionResult> SelectCompanyFOrCustomer(long customerId, long companyId )
+        public async Task<IActionResult> SelectCompanyFOrCustomer(long customerId, long companyId)
         {
             var result = await _companyService.SelectCompanyForCustomer(customerId, companyId);
 

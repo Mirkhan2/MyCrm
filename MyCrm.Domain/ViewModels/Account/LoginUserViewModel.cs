@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace MyCrm.Domain.ViewModels.Account
 {
-    public class LoginUserViewModel
-    {
-        [Display(Name = "نام کاربری")]
-        [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-        public string UserName { get; set; }
+    //public class LoginUserViewModel
+    //{
+    //    [Display(Name = "نام کاربری")]
+    //    [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
+    //    public string UserName { get; set; }
 
-        [Display(Name = "کلمه عبور")]
-        [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-        public string Password { get; set; }
+    //    [Display(Name = "کلمه عبور")]
+    //    [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
+    //    public string Password { get; set; }
 
-        public bool RememberMe { get; set; }
-    }
+    //    public bool RememberMe { get; set; }
+    //}
 
-    public enum LoginUserResult
-    {
-        Success,
-        NotFound,
-        PasswordNotCorrect
-    }
+    //public enum LoginUserResult
+    //{
+    //    Success,
+    //    NotFound,
+    //    PasswordNotCorrect
+    //}
 }

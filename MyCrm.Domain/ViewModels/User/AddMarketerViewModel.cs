@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using MyCrm.Domain.Entities.Account;
 
 namespace MyCrm.Domain.ViewModels.User
 {
@@ -54,7 +53,7 @@ namespace MyCrm.Domain.ViewModels.User
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
         public string IrCode { get; set; }
 
-        public Education Education { get; set; }
+      //  public Education Education { get; set; }
 
     }
 

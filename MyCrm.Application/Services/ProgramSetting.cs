@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyCrm.Application.Interfaces;
-using MyCrm.Domain.Entities.Leads;
-using MyCrm.Domain.Interfaces;
-using MyCrm.Domain.ViewModels;
+using MyCrm.Domains.Entities.Leads;
+using MyCrm.Domains.Interfaces;
+using MyCrm.Domains.ViewModels;
 
 namespace MyCrm.Application.Services
 {
@@ -34,7 +34,7 @@ namespace MyCrm.Application.Services
             var allUsers = await _userRepository.GetUserQueryable();
             var allCompany = await _companyRepository.GetCompanyQueryable();
 
-            var leadQueryable = await _leadRepository.GetLeadQueryable();
+            var leadQueryable = await _leadRepository.GetLeadsQueryable();
 
             var orderPerMonth = new List<int>();
 

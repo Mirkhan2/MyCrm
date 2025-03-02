@@ -35,7 +35,7 @@ namespace MyCrm.Web
             #endregion
 
             #region IoC
-            
+
             RegisterServices(services);
 
             #endregion
@@ -64,7 +64,7 @@ namespace MyCrm.Web
             }).AddCookie(options =>
             {
                 options.LoginPath = "/login";
-                options.LogoutPath = "logout";
+                options.LogoutPath = "/logout";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(143200);
             });
 
@@ -88,12 +88,15 @@ namespace MyCrm.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             //olgo bray roiting
             app.UseEndpoints(endpoint =>
             {
                 endpoint.MapControllerRoute(
-                    name : "default",
-                    pattern: "{controller= Home}/{action=Index}/{Id}");
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{Id}");
             });
 
         }

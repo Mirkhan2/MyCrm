@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyCrm.Data.Context;
-using MyCrm.Domain.Entities.Events;
-using MyCrm.Domain.Interfaces;
+using MyCrm.Domains.Entities.Events;
+using MyCrm.Domains.Interfaces;
 
 namespace MyCrm.Data.Repository
 {

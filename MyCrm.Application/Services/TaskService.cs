@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyCrm.Application.Interfaces;
-using MyCrm.Domain.Entities.Tasks;
-using MyCrm.Domain.Interfaces;
-using MyCrm.Domain.ViewModels.Actions;
-using MyCrm.Domain.ViewModels.MarketingAction;
-using MyCrm.Domain.ViewModels.Paging;
-using MyCrm.Domain.ViewModels.Tasks;
-using static MyCrm.Domain.ViewModels.Tasks.EditTaskViewModel;
+using MyCrm.Domains.Entities.Tasks;
+using MyCrm.Domains.Interfaces;
+using MyCrm.Domains.ViewModels.Actions;
+using MyCrm.Domains.ViewModels.MarketingAction;
+using MyCrm.Domains.ViewModels.Paging;
+using MyCrm.Domains.ViewModels.Tasks;
+using static MyCrm.Domains.ViewModels.Tasks.EditTaskViewModel;
 
 namespace MyCrm.Application.Services
 {
@@ -30,7 +30,7 @@ namespace MyCrm.Application.Services
         {
             var task = new CrmTask()
             {
-                //MarketingActions = taskViewModel.ma
+                //MarketingActions = taskViewModel.
                 Description = taskViewModel.Description,
                 MarketerId = taskViewModel.MarketerId,
                 OrderId = taskViewModel.OrderId,
@@ -40,7 +40,7 @@ namespace MyCrm.Application.Services
 
             };
             await _taskRepository.AddTask(task);
-            await _taskRepository.SaveChange();
+            await _taskRepository.SaveChanges();
 
             return CreateTaskResult.Success;
 
@@ -55,7 +55,7 @@ namespace MyCrm.Application.Services
             }
             task.IsDelete = true;
             await _taskRepository.UpdateTask(task);
-            await _taskRepository.SaveChange();
+            await _taskRepository.SaveChanges();
 
             return true;
         }
@@ -73,7 +73,7 @@ namespace MyCrm.Application.Services
             task.TaskStatus = taskViewModel.TaskStatus;
 
             await _taskRepository.UpdateTask(task);
-            await _taskRepository.SaveChange();
+            await _taskRepository.SaveChanges();
 
             return EditTaskResult.Success;
         }
@@ -121,7 +121,7 @@ namespace MyCrm.Application.Services
             var result = new TaskDetailViewModel()
             {
                 Task = task,
-                ActionCount = _taskRepository.GetActionQueryable().Result.Count(a => a.CrmTaskId == taskId),
+                ActionCount = _taskRepository.GetActionsQueryable().Result.Count(a => a.CrmTaskId == taskId),
                // MarketingActions = await _taskRepository.GetActionQueryable().Result.Where(a => a.CrmTaskId == taskId && !a.IsDelete).ToListAsync()
             };
 
@@ -154,7 +154,7 @@ namespace MyCrm.Application.Services
 
             #region paging
             var pager = Pager.build(filter.PageId, filter.AllEntitiesCount, filter.TakeEntity,
-                filter.HowManyShowPageafterAndBefore);
+                filter.HowManyShowPageAfterAndBefore);
             var AllEntities = await query.Paging(pager).ToListAsync();
             #endregion
             return filter.SetEntity(AllEntities).SetPaging(pager);
@@ -183,21 +183,22 @@ namespace MyCrm.Application.Services
         public async Task<CreateMarketingActionResult> CreateMarketingActionResult(CreateMarketingActionViewModel action)
         {
             var task = await _taskRepository.GetTaskById(action.CrmTaskId);
+
             if (task == null)
             {
-                return Domain.ViewModels.MarketingAction.CreateMarketingActionResult.Fail;
+                return Domains.ViewModels.MarketingAction.CreateMarketingActionResult.Fail;
             }
 
-            var newAction = new MarketingAction()
+            var newa = new MarketingAction()
             {
                 Description = action.Description,
                 CrmTaskId = action.CrmTaskId,
 
             };
-            await _taskRepository.AddAction(newAction);
-            await _taskRepository.SaveChange();
+         //  await _taskRepository.AddAction(newa);
+            await _taskRepository.SaveChanges();
 
-            return Domain.ViewModels.MarketingAction.CreateMarketingActionResult.Success;
+            return Domains.ViewModels.MarketingAction.CreateMarketingActionResult.Success;
         }
 
         public async Task<bool> ChangeTaskState(long taskId, CrmTaskStatus crmTaskStatus)
@@ -209,9 +210,10 @@ namespace MyCrm.Application.Services
             }
             task.TaskStatus = crmTaskStatus;
             await _taskRepository.UpdateTask(task);
-            await _taskRepository.SaveChange();
+            await _taskRepository.SaveChanges();
 
             return true;
         }
+
     }
 }

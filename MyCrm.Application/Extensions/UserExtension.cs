@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using MyCrm.Domain.Entities.Account;
+using MyCrm.Domains.Entities.Account;
 
 namespace MyCrm.Application.Extensions
 {

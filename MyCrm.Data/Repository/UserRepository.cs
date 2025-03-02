@@ -3,11 +3,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyCrm.Data.Context;
-using MyCrm.Domain.Entities.Account;
-using MyCrm.Domain.Entities.Orders;
-using MyCrm.Domain.Interfaces;
-using MyCrm.Domain.ViewModels.Paging;
-using MyCrm.Domain.ViewModels.User;
+using MyCrm.Domains.Entities.Account;
+using MyCrm.Domains.Entities.Orders;
+using MyCrm.Domains.Interfaces;
+using MyCrm.Domains.ViewModels.Paging;
+using MyCrm.Domains.ViewModels.User;
 
 namespace MyCrm.Data.Repository
 {
@@ -53,7 +53,7 @@ namespace MyCrm.Data.Repository
             #region paging
 
             var pager = Pager.build(filter.PageId, filter.AllEntitiesCount, filter.TakeEntity,
-                filter.HowManyShowPageafterAndBefore);
+                filter.HowManyShowPageAfterAndBefore);
 
             var AllEntities = await query.Paging(pager).ToListAsync();
 

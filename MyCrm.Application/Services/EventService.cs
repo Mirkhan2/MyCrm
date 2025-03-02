@@ -1,103 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using MyCrm.Application.Convertor;
-using MyCrm.Application.Extensions;
 using MyCrm.Application.Interfaces;
-using MyCrm.Application.Security;
+using MyCrm.Domains.Entities.Events;
 using MyCrm.Domains.Interfaces;
-using MyCrm.Data.Repository;
-using MyCrm.Domain.Entities.Account;
-using MyCrm.Domain.Entities.Events;
-using MyCrm.Domain.Interfaces;
-using MyCrm.Domain.ViewModels.Events;
-using MyCrm.Domain.ViewModels.Paging;
+using MyCrm.Domains.ViewModels.Events;
+using MyCrm.Domains.ViewModels.Paging;
 
 namespace MyCrm.Application.Services
 {
     public class EventService : IEventService
     {
-        #region ctor
-
         private readonly IEventRepository _eventRepository;
+
         public EventService(IEventRepository eventRepository)
         {
             _eventRepository = eventRepository;
         }
-        #endregion
 
         public async Task<AddEventResult> AddEvent(AddEventViewModel eventViewModel, long userId)
         {
 
-            var eve = new Event()
+            var newEvent = new Event()
             {
-                //UserId = eventr.UserId,
                 Content = eventViewModel.Content,
                 EventDate = eventViewModel.EventDate.ToMiladiDate(),
-                CreateDate = eventViewModel.CreateDate,
-                //EventId = eventr.EventId,
                 EventType = eventViewModel.EventType,
                 Title = eventViewModel.Title,
                 UserId = userId
-
-
-                //  IsDelete = eve.IsDelete,
-                //User = eve.User
-
             };
 
-            //if (!string.IsNullOrEmpty(imageProfileName))
-            //{
-
-            //}
-            await _eventRepository.AddEvent(eve);
+            await _eventRepository.AddEvent(newEvent);
             await _eventRepository.SaveChange();
 
             return AddEventResult.Success;
 
         }
-
-        public async Task<bool> DeleteEvent(long eventId)
-        {
-            var eve = await _eventRepository.GetEventById(eventId);
-            if (eve == null)
-            {
-                return false;
-            }
-            eve.IsDelete = true;
-            await _eventRepository.UpdateEvent(eve);
-            await _eventRepository.SaveChange();
-
-            return true;
-        }
-
+       
         public async Task<EditEventResult> EditEvent(EditEventViewModel eventViewModel)
         {
-            var eve = await _eventRepository.GetEventById(eventViewModel.EventId);
-            if (eve == null)
+            var myEvent = await _eventRepository.GetEventById(eventViewModel.EventId);
+
+            if (myEvent == null)
             {
-                return EditEventResult.Error;
+                return EditEventResult.Fail;
             }
 
+            myEvent.Content = eventViewModel.Content;
+            myEvent.EventDate = eventViewModel.EventDate.ToMiladiDate();
+            myEvent.EventType = eventViewModel.EventType;
+            myEvent.Title = eventViewModel.Title;
 
-            eve.Content = eventViewModel.Content;
-            eve.EventDate = eventViewModel.EventDate.ToMiladiDate();
-            // eve.CreateDate = eventr.CreateDate;
-            //EventId = eventr.EventId,
-            eve.EventType = eventViewModel.EventType;
-            eve.Title = eventViewModel.Title;
-
-
-            //eve.CreateDate = DateTime.Now.AddDays
-            await _eventRepository.UpdateEvent(eve);
+            await _eventRepository.UpdateEvent(myEvent);
             await _eventRepository.SaveChange();
+
             return EditEventResult.Success;
 
         }
@@ -105,23 +65,25 @@ namespace MyCrm.Application.Services
         public async Task<EditEventViewModel> FillEditEventViewModel(long eventId)
         {
             var myEvent = await _eventRepository.GetEventById(eventId);
+
             if (myEvent == null)
             {
                 return null;
             }
+
             var result = new EditEventViewModel()
             {
                 EventType = myEvent.EventType,
-                Title = myEvent.Title,
                 Content = myEvent.Content,
                 EventDate = myEvent.EventDate.ToShamsiDate(),
-                EventId = eventId
-
+                Title = myEvent.Title,
+                EventId = myEvent.EventId
             };
+
             return result;
         }
 
-        public async Task<FilterEventViewModel> FilterEvent(FilterEventViewModel filter)
+        public async Task<FilterEventViewModel> FilterEvents(FilterEventViewModel filter)
         {
             var query = await _eventRepository.GetEventsQueryAble();
 
@@ -154,7 +116,7 @@ namespace MyCrm.Application.Services
             #region paging
 
             var pager = Pager.build(filter.PageId, await query.CountAsync(), filter.TakeEntity,
-                filter.HowManyShowPageafterAndBefore);
+                filter.HowManyShowPageAfterAndBefore);
 
             var allEntities = await query.Paging(pager).ToListAsync();
 
@@ -162,8 +124,22 @@ namespace MyCrm.Application.Services
 
             return filter.SetEntity(allEntities).SetPaging(pager);
         }
+        public async Task<bool> DeleteEvent(long eventId)
+        {
+            var myEvent = await _eventRepository.GetEventById(eventId);
 
-      
+            if (myEvent == null)
+            {
+                return false;
+            }
+
+            myEvent.IsDelete = true;
+
+            await _eventRepository.UpdateEvent(myEvent);
+            await _eventRepository.SaveChange();
+
+            return true;
+        }
 
 
     }

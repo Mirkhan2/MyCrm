@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using MyCrm.Domain.Entities.Companies;
-using MyCrm.Domain.ViewModels.Company;
+using MyCrm.Domains.Entities.Companies;
+using MyCrm.Domains.ViewModels.Company;
 
 namespace MyCrm.Application.Interfaces
 {

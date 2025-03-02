@@ -1,6 +1,6 @@
 ﻿@using MyCrm.Application.Extensions
-@using MyCrm.Application.Static_Tools
-@model MyCrm.Domain.ViewModels.DashboardViewModel
+@using MyCrm.Application.StaticTools
+@model MyCrm.Domains.ViewModels.DashboardViewModel
 @{
     ViewData["Title"] = "داشبورد";
 }
@@ -11,9 +11,9 @@
 
     <script>
 
-        var customerCount = @((Model.CustomerCount != null) ? Model.CustomerCount : 0);
-        var companyCount = @((Model.CompanyCount != null) ? Model.CompanyCount : 0);
-        var marketerCount = @((Model.MarketerCount != null) ? Model.MarketerCount : 0);
+        var customerCount = @(Model.CustomerCount);
+        var companyCount = @(Model.CompanyCount);
+        var marketerCount = @(Model.MarketerCount);
 
         const data = {
             labels: [

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyCrm.Data.Context;
-using MyCrm.Domain.Entities.Tasks;
-using MyCrm.Domain.Interfaces;
-using MyCrm.Domain.ViewModels.Actions;
+using MyCrm.Domains.Entities.Tasks;
+using MyCrm.Domains.Interfaces;
+using MyCrm.Domains.ViewModels.Actions;
 
 namespace MyCrm.Data.Repository
 {
@@ -22,41 +22,32 @@ namespace MyCrm.Data.Repository
 
         }
 
-        public async Task AddAction(MarketingAction action)
-        {
-            await _context.AddAsync(action);
-                }
+
         #endregion
 
-        public async Task AddTask(CrmTask task)
-        {
-            await _context.AddAsync(task);
-        }
-
-        public Task DeleteAction(long taskId)
+        public Task AddAction(Domains.Entities.Actions.MarketingAction action)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteTask(long taskId)
+        public Task AddTask(CrmTask task)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<MarketingAction> GetActionById(long actionId)
+        public Task<Domains.Entities.Actions.MarketingAction> GetActionById(long actionId)
         {
-            return await _context.MarketingActions.FirstOrDefaultAsync(a => a.ActionId == actionId);
+            throw new NotImplementedException();
         }
 
-        public async Task<IQueryable<MarketingAction>> GetActionQueryable()
+        public Task<IQueryable<Domains.Entities.Actions.MarketingAction>> GetActionsQueryable()
         {
-            return _context.MarketingActions.AsQueryable();
+            throw new NotImplementedException();
         }
 
-        //FIxen
-        public async Task<CrmTask> GetTaskById(long taskId)
+        public Task<CrmTask> GetTaskById(long taskId)
         {
-           return await _context.CrmTasks.FirstOrDefaultAsync(a => a.TaskId == taskId);
+            throw new NotImplementedException();
         }
 
         public Task<IQueryable<CrmTask>> GetTasksQueryable()
@@ -64,28 +55,109 @@ namespace MyCrm.Data.Repository
             throw new NotImplementedException();
         }
 
-        public async Task SaveChange()
+        public Task SaveChanges()
         {
-            await _context.SaveChangesAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task UpdateAction(MarketingAction action)
+        public Task UpdateAction(Domains.Entities.Actions.MarketingAction action)
         {
-            _context.MarketingActions.Update(action);
+            throw new NotImplementedException();
         }
 
-        public async Task UpdateTask(CrmTask task)
+        public Task UpdateTask(CrmTask task)
         {
-            _context.CrmTasks.Update(task);
+            throw new NotImplementedException();
         }
 
-        async Task<CrmTask> ITaskRepository.GetTaskById(long taskId)
-        {
-            return await _context.CrmTasks.FirstOrDefaultAsync(a=> a.TaskId == taskId); 
-        }
-        public async Task<IQueryable<MarketingAction>> GetActionsQueryable()
-        {
-            return _context.MarketingActions.AsQueryable();
-        }
+        //public async Task AddAction(MarketingAction action)
+        //{
+        //    await _context.AddAsync(action);
+        //        }
+
+        //public async Task AddTask(CrmTask task)
+        //{
+        //    await _context.AddAsync(task);
+        //}
+
+        //public Task DeleteAction(long taskId)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public Task DeleteTask(long taskId)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public async Task<MarketingAction> GetActionById(long actionId)
+        //{
+        //    return await _context.MarketingActions.FirstOrDefaultAsync(a => a.ActionId == actionId);
+        //}
+
+        //public async Task<IQueryable<MarketingAction>> GetActionQueryable()
+        //{
+        //    return _context.MarketingActions.AsQueryable();
+        //}
+
+        ////FIxen
+        //public async Task<CrmTask> GetTaskById(long taskId)
+        //{
+        //   return await _context.CrmTasks.FirstOrDefaultAsync(a => a.TaskId == taskId);
+        //}
+
+        //public Task<IQueryable<CrmTask>> GetTasksQueryable()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public async Task SaveChange()
+        //{
+        //    await _context.SaveChangesAsync();
+        //}
+
+        //public async Task UpdateAction(MarketingAction action)
+        //{
+        //    _context.MarketingActions.Update(action);
+        //}
+
+        //public async Task UpdateTask(CrmTask task)
+        //{
+        //    _context.CrmTasks.Update(task);
+        //}
+
+        //async Task<CrmTask> ITaskRepository.GetTaskById(long taskId)
+        //{
+        //    return await _context.CrmTasks.FirstOrDefaultAsync(a=> a.TaskId == taskId); 
+        //}
+        //public async Task<IQueryable<MarketingAction>> GetActionsQueryable()
+        //{
+        //    return _context.MarketingActions.AsQueryable();
+        //}
+
+        //public Task SaveChanges()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public Task AddAction(Domains.Entities.Actions.MarketingAction action)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public Task UpdateAction(Domains.Entities.Actions.MarketingAction action)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //Task<Domains.Entities.Actions.MarketingAction> ITaskRepository.GetActionById(long actionId)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //Task<IQueryable<Domains.Entities.Actions.MarketingAction>> ITaskRepository.GetActionsQueryable()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

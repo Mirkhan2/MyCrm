@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using MyCrm.Application.Interface;
-using MyCrm.Domain.ViewModels.Account;
+using MyCrm.Domains.ViewModels.Account;
 
 namespace MyCrm.Web.Controllers
 {

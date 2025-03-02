@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using MyCrm.Application.Extensions;
 using MyCrm.Application.Interfaces;
 using MyCrm.Application.Security;
-using MyCrm.Application.Static_Tools;
-using MyCrm.Domain.Entities.Orders;
-using MyCrm.Domain.Entities.Tasks;
-using MyCrm.Domain.Interfaces;
-using MyCrm.Domain.ViewModels.Orders;
-using MyCrm.Domain.ViewModels.Paging;
+using MyCrm.Application.StaticTools;
+using MyCrm.Domains.Entities.Orders;
+using MyCrm.Domains.Entities.Tasks;
+using MyCrm.Domains.Interfaces;
+using MyCrm.Domains.ViewModels.Orders;
+using MyCrm.Domains.ViewModels.Paging;
 
 namespace MyCrm.Application.Services
 {
@@ -98,7 +98,7 @@ namespace MyCrm.Application.Services
 
             #region paging
             var pager = Pager.build(filter.PageId, filter.AllEntitiesCount, filter.TakeEntity,
-             filter.HowManyShowPageafterAndBefore);
+             filter.HowManyShowPageAfterAndBefore);
 
             var AllEntities = await query.Paging(pager).ToListAsync();
 
@@ -270,7 +270,7 @@ namespace MyCrm.Application.Services
 
             #region paging
             var pager = Pager.build(filter.PageId, filter.AllEntitiesCount, filter.TakeEntity,
-             filter.HowManyShowPageafterAndBefore);
+             filter.HowManyShowPageAfterAndBefore);
 
             var AllEntities = await query.Paging(pager).ToListAsync();
 

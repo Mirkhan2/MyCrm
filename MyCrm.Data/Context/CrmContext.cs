@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MyCrm.Domain.Entities.Account;
-using MyCrm.Domain.Entities.Companies;
-using MyCrm.Domain.Entities.Events;
-using MyCrm.Domain.Entities.Leads;
-using MyCrm.Domain.Entities.Orders;
-using MyCrm.Domain.Entities.Predict;
-using MyCrm.Domain.Entities.Tasks;
-using MyCrm.Domain.ViewModels.Actions;
+using MyCrm.Domains.Entities.Account;
+using MyCrm.Domains.Entities.Companies;
+using MyCrm.Domains.Entities.Events;
+using MyCrm.Domains.Entities.Leads;
+using MyCrm.Domains.Entities.Orders;
+using MyCrm.Domains.Entities.Predict;
+using MyCrm.Domains.Entities.Tasks;
+using MyCrm.Domains.ViewModels.Actions;
 
 namespace MyCrm.Data.Context
 {

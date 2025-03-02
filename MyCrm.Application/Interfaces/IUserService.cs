@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using MyCrm.Domain.Entities.Account;
-using MyCrm.Domain.ViewModels.Account;
-using MyCrm.Domain.ViewModels.User;
-using static MyCrm.Domain.ViewModels.User.AddCustomerViewModel;
+using MyCrm.Domains.Entities.Account;
+using MyCrm.Domains.ViewModels.Account;
+using MyCrm.Domains.ViewModels.User;
 
 namespace MyCrm.Application.Interface
 {

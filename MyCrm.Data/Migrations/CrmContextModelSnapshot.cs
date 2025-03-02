@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCrm.Data.Context;
 
+#nullable disable
+
 namespace MyCrm.Data.Migrations
 {
     [DbContext(typeof(CrmContext))]
@@ -15,11 +17,12 @@ namespace MyCrm.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.10")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Account.Customer", b =>
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("MyCrm.Domains.Entities.Account.Customer", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -45,7 +48,7 @@ namespace MyCrm.Data.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Account.Marketer", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Account.Marketer", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -72,12 +75,13 @@ namespace MyCrm.Data.Migrations
                     b.ToTable("Marketers");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Account.User", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Account.User", b =>
                 {
                     b.Property<long>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("UserId"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -126,12 +130,40 @@ namespace MyCrm.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Companies.Company", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Actions.MarketingAction", b =>
+                {
+                    b.Property<long>("ActionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ActionId"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CrmTaskId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ActionId");
+
+                    b.HasIndex("CrmTaskId");
+
+                    b.ToTable("MarketingAction");
+                });
+
+            modelBuilder.Entity("MyCrm.Domains.Entities.Companies.Company", b =>
                 {
                     b.Property<long>("CompanyId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("CompanyId"), 1L, 1);
 
                     b.Property<string>("Address")
                         .HasMaxLength(100)
@@ -177,12 +209,13 @@ namespace MyCrm.Data.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Events.Event", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Events.Event", b =>
                 {
                     b.Property<long>("EventId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("EventId"), 1L, 1);
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
@@ -212,12 +245,13 @@ namespace MyCrm.Data.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Leads.Lead", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Leads.Lead", b =>
                 {
                     b.Property<long>("LeadId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("LeadId"), 1L, 1);
 
                     b.Property<string>("Company")
                         .HasMaxLength(100)
@@ -273,12 +307,13 @@ namespace MyCrm.Data.Migrations
                     b.ToTable("Leads");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Orders.Order", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Orders.Order", b =>
                 {
                     b.Property<long>("OrderId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("OrderId"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -290,6 +325,9 @@ namespace MyCrm.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ImageName")
                         .HasMaxLength(150)
@@ -307,6 +345,9 @@ namespace MyCrm.Data.Migrations
                     b.Property<int>("OrderType")
                         .HasColumnType("int");
 
+                    b.Property<int>("PredictDay")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -319,7 +360,7 @@ namespace MyCrm.Data.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Orders.OrderSelectedMarketer", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Orders.OrderSelectedMarketer", b =>
                 {
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint");
@@ -349,12 +390,31 @@ namespace MyCrm.Data.Migrations
                     b.ToTable("OrderSelectedMarketers");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Tasks.CrmTask", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Predict.PredictMarketer", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<long>("MarketerId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MarketerId");
+
+                    b.ToTable("PredictMarketers");
+                });
+
+            modelBuilder.Entity("MyCrm.Domains.Entities.Tasks.CrmTask", b =>
                 {
                     b.Property<long>("TaskId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("TaskId"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -374,6 +434,9 @@ namespace MyCrm.Data.Migrations
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
+                    b.Property<int>("TaskStatus")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UntilDate")
                         .HasColumnType("datetime2");
 
@@ -386,12 +449,13 @@ namespace MyCrm.Data.Migrations
                     b.ToTable("CrmTasks");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.ViewModels.Actions.MarketingAction", b =>
+            modelBuilder.Entity("MyCrm.Domains.ViewModels.Actions.MarketingAction", b =>
                 {
                     b.Property<long>("ActionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ActionId"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -412,15 +476,15 @@ namespace MyCrm.Data.Migrations
                     b.ToTable("MarketingActions");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Account.Customer", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Account.Customer", b =>
                 {
-                    b.HasOne("MyCrm.Domain.Entities.Companies.Company", "Company")
+                    b.HasOne("MyCrm.Domains.Entities.Companies.Company", "Company")
                         .WithMany("Customers")
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("MyCrm.Domain.Entities.Account.User", "User")
+                    b.HasOne("MyCrm.Domains.Entities.Account.User", "User")
                         .WithOne("Customer")
-                        .HasForeignKey("MyCrm.Domain.Entities.Account.Customer", "UserId")
+                        .HasForeignKey("MyCrm.Domains.Entities.Account.Customer", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -429,20 +493,31 @@ namespace MyCrm.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Account.Marketer", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Account.Marketer", b =>
                 {
-                    b.HasOne("MyCrm.Domain.Entities.Account.User", "User")
+                    b.HasOne("MyCrm.Domains.Entities.Account.User", "User")
                         .WithOne("Marketer")
-                        .HasForeignKey("MyCrm.Domain.Entities.Account.Marketer", "UserId")
+                        .HasForeignKey("MyCrm.Domains.Entities.Account.Marketer", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Events.Event", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Actions.MarketingAction", b =>
                 {
-                    b.HasOne("MyCrm.Domain.Entities.Account.User", "User")
+                    b.HasOne("MyCrm.Domains.Entities.Tasks.CrmTask", "CrmTask")
+                        .WithMany("MarketingActions")
+                        .HasForeignKey("CrmTaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CrmTask");
+                });
+
+            modelBuilder.Entity("MyCrm.Domains.Entities.Events.Event", b =>
+                {
+                    b.HasOne("MyCrm.Domains.Entities.Account.User", "User")
                         .WithMany("Events")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -451,15 +526,15 @@ namespace MyCrm.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Leads.Lead", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Leads.Lead", b =>
                 {
-                    b.HasOne("MyCrm.Domain.Entities.Account.User", "CreatedBy")
+                    b.HasOne("MyCrm.Domains.Entities.Account.User", "CreatedBy")
                         .WithMany("CollectionLeadCreatedBy")
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MyCrm.Domain.Entities.Account.User", "Owner")
+                    b.HasOne("MyCrm.Domains.Entities.Account.User", "Owner")
                         .WithMany("CollectionLeadOwner")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -470,9 +545,9 @@ namespace MyCrm.Data.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Orders.Order", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Orders.Order", b =>
                 {
-                    b.HasOne("MyCrm.Domain.Entities.Account.Customer", "Customer")
+                    b.HasOne("MyCrm.Domains.Entities.Account.Customer", "Customer")
                         .WithMany("OrderCollection")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -481,23 +556,23 @@ namespace MyCrm.Data.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Orders.OrderSelectedMarketer", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Orders.OrderSelectedMarketer", b =>
                 {
-                    b.HasOne("MyCrm.Domain.Entities.Account.Marketer", "Marketer")
+                    b.HasOne("MyCrm.Domains.Entities.Account.Marketer", "Marketer")
                         .WithMany("OrderSelectedMarketers")
                         .HasForeignKey("MarketerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MyCrm.Domain.Entities.Account.User", "ModifyUser")
+                    b.HasOne("MyCrm.Domains.Entities.Account.User", "ModifyUser")
                         .WithMany("OrderSelectedMarketers")
                         .HasForeignKey("ModifyUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MyCrm.Domain.Entities.Orders.Order", "Order")
+                    b.HasOne("MyCrm.Domains.Entities.Orders.Order", "Order")
                         .WithOne("OrderSelectedMarketer")
-                        .HasForeignKey("MyCrm.Domain.Entities.Orders.OrderSelectedMarketer", "OrderId")
+                        .HasForeignKey("MyCrm.Domains.Entities.Orders.OrderSelectedMarketer", "OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -508,15 +583,26 @@ namespace MyCrm.Data.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Tasks.CrmTask", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Predict.PredictMarketer", b =>
                 {
-                    b.HasOne("MyCrm.Domain.Entities.Account.Marketer", "Marketer")
+                    b.HasOne("MyCrm.Domains.Entities.Account.Marketer", "Marketer")
+                        .WithMany("PredictMarketers")
+                        .HasForeignKey("MarketerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Marketer");
+                });
+
+            modelBuilder.Entity("MyCrm.Domains.Entities.Tasks.CrmTask", b =>
+                {
+                    b.HasOne("MyCrm.Domains.Entities.Account.Marketer", "Marketer")
                         .WithMany("CrmTasks")
                         .HasForeignKey("MarketerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyCrm.Domain.Entities.Orders.Order", "Order")
+                    b.HasOne("MyCrm.Domains.Entities.Orders.Order", "Order")
                         .WithMany("CrmTasks")
                         .HasForeignKey("OrderId");
 
@@ -525,10 +611,10 @@ namespace MyCrm.Data.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.ViewModels.Actions.MarketingAction", b =>
+            modelBuilder.Entity("MyCrm.Domains.ViewModels.Actions.MarketingAction", b =>
                 {
-                    b.HasOne("MyCrm.Domain.Entities.Tasks.CrmTask", "CrmTasks")
-                        .WithMany("MarketingActions")
+                    b.HasOne("MyCrm.Domains.Entities.Tasks.CrmTask", "CrmTasks")
+                        .WithMany()
                         .HasForeignKey("CrmTaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -536,19 +622,21 @@ namespace MyCrm.Data.Migrations
                     b.Navigation("CrmTasks");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Account.Customer", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Account.Customer", b =>
                 {
                     b.Navigation("OrderCollection");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Account.Marketer", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Account.Marketer", b =>
                 {
                     b.Navigation("CrmTasks");
 
                     b.Navigation("OrderSelectedMarketers");
+
+                    b.Navigation("PredictMarketers");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Account.User", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Account.User", b =>
                 {
                     b.Navigation("CollectionLeadCreatedBy");
 
@@ -563,19 +651,19 @@ namespace MyCrm.Data.Migrations
                     b.Navigation("OrderSelectedMarketers");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Companies.Company", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Companies.Company", b =>
                 {
                     b.Navigation("Customers");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Orders.Order", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Orders.Order", b =>
                 {
                     b.Navigation("CrmTasks");
 
                     b.Navigation("OrderSelectedMarketer");
                 });
 
-            modelBuilder.Entity("MyCrm.Domain.Entities.Tasks.CrmTask", b =>
+            modelBuilder.Entity("MyCrm.Domains.Entities.Tasks.CrmTask", b =>
                 {
                     b.Navigation("MarketingActions");
                 });

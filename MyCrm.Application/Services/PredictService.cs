@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyCrm.Application.Interfaces;
-using MyCrm.Domain.Entities.Account;
-using MyCrm.Domain.Entities.Predict;
-using MyCrm.Domain.Interfaces;
-using MyCrm.Domain.ViewModels.Predict;
+using MyCrm.Domains.Entities.Account;
+using MyCrm.Domains.Entities.Predict;
+using MyCrm.Domains.Interfaces;
+using MyCrm.Domains.ViewModels.Predict;
 
 namespace MyCrm.Application.Services
 {

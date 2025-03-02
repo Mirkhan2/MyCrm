@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 using MyCrm.Application.Extensions;
 using MyCrm.Application.Interface;
 using MyCrm.Application.Security;
-using MyCrm.Application.Static_Tools;
-using MyCrm.Domain.Entities.Account;
-using MyCrm.Domain.Interfaces;
-using MyCrm.Domain.ViewModels.Account;
-using MyCrm.Domain.ViewModels.User;
+using MyCrm.Application.StaticTools;
+using MyCrm.Domains.Entities.Account;
+using MyCrm.Domains.Interfaces;
+using MyCrm.Domains.ViewModels.Account;
+using MyCrm.Domains.ViewModels.User;
 
 namespace MyCrm.Application.Services
 {
@@ -126,11 +126,9 @@ namespace MyCrm.Application.Services
             }
 
 
-
-
             user.Email = marketer.Email;
             //   Password = PasswordHelper.EncodePasswordMd5
-            //Password = PasswordHelper.EncodePasswordMd5(marketer.pasw)
+         //   Password = PasswordHelper.EncodePasswordMd5(marketer.p);
             user.FirstName = marketer.FirstName;
             user.LastName = marketer.LastName;
             user.IntroduceName = marketer.IntroduceName;

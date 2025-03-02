@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using MyCrm.Application.Interface;
 using MyCrm.Application.Interfaces;
 using MyCrm.Application.Services;
 using MyCrm.Data.Repository;
-using MyCrm.Domain.Interfaces;
+using MyCrm.Domains.Interfaces;
 
 namespace MyCrm.IoC
 {
@@ -17,9 +12,8 @@ namespace MyCrm.IoC
         public static void RegisterServices(IServiceCollection service)
         {
             service.AddTransient<IUserService, UserService>();
-
             service.AddTransient<IOrderService, OrderService>();
-            service.AddTransient<ICompanyService , CompanyService>();
+            service.AddTransient<ICompanyService, CompanyService>();
             service.AddTransient<IProgramSetting, ProgramSetting>();
             service.AddTransient<IEventService, EventService>();
             service.AddTransient<ILeadService, LeadService>();
@@ -27,14 +21,14 @@ namespace MyCrm.IoC
             service.AddTransient<IPredictService, PredictService>();
 
 
-            service.AddTransient<IUserRepository , UserRepository>();
-            service.AddTransient<IOrderRepository , OrderRepository>();
-            service.AddTransient<ICompanyRepository , CompanyRepository>();
-            service.AddTransient<IEventRepository , EventRepository>();
-            service.AddTransient<ILeadRepository , LeadRepository>();
-            service.AddTransient<ITaskRepository , TaskRepository>();
-            service.AddTransient<IPredictRepository , PredictRepository>();
-            // service.AddTransient<I>
+
+            service.AddTransient<IUserRepository, UserRepository>();
+            service.AddTransient<IOrderRepository, OrderRepository>();
+            service.AddTransient<ICompanyRepository, CompanyRepository>();
+            service.AddTransient<IEventRepository, EventRepository>();
+            service.AddTransient<ILeadRepository, LeadRepository>();
+            service.AddTransient<ITaskRepository, TaskRepository>();
+            service.AddTransient<IPredictRepository, PredictRepository>();
         }
     }
 }

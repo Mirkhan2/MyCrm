@@ -5,33 +5,34 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyCrm.Data.Context;
-using MyCrm.Domain.Entities.Leads;
-using MyCrm.Domain.Interfaces;
+using MyCrm.Domains.Entities.Leads;
+using MyCrm.Domains.Interfaces;
 
 namespace MyCrm.Data.Repository
 {
     public class LeadRepository : ILeadRepository
     {
+
         #region ctor
+
         private readonly CrmContext _context;
+
         public LeadRepository(CrmContext context)
         {
             _context = context;
         }
+
         #endregion
+
+
         public async Task AddLead(Lead lead)
         {
             await _context.Leads.AddAsync(lead);
         }
 
-        public async Task<Lead> GetLeadById(long leadId)
+        public async Task UpdateLead(Lead lead)
         {
-           return await _context.Leads.FirstOrDefaultAsync(a => a.LeadId == leadId);  
-        }
-
-        public async Task<IQueryable<Lead>> GetLeadQueryable()
-        {
-            return  _context.Leads.AsQueryable();
+            _context.Leads.Update(lead);
         }
 
         public async Task SaveChanges()
@@ -39,12 +40,14 @@ namespace MyCrm.Data.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateLead(Lead lead)
+        public async Task<Lead> GetLeadById(long leadId)
         {
-             _context.Leads.Update(lead);
+            return await _context.Leads.FirstOrDefaultAsync(a => a.LeadId == leadId);
         }
-     
 
-
+        public async Task<IQueryable<Lead>> GetLeadsQueryable()
+        {
+            return _context.Leads.AsQueryable();
+        }
     }
 }

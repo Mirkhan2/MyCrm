@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyCrm.Application.Extensions;
 using MyCrm.Application.Interface;
 using MyCrm.Application.Interfaces;
-using MyCrm.Domain.ViewModels.Orders;
-using MyCrm.Domain.ViewModels.User;
+using MyCrm.Domains.ViewModels.Orders;
 
 namespace MyCrm.Web.Controllers
 {
@@ -17,7 +16,7 @@ namespace MyCrm.Web.Controllers
         private readonly IUserService _userService;
         private readonly IPredictService _predictService;
 
-        public OrderController(IOrderService orderService, IUserService userService,IPredictService predictService)
+        public OrderController(IOrderService orderService, IUserService userService, IPredictService predictService)
         {
             _orderService = orderService;
             _userService = userService;
@@ -57,7 +56,7 @@ namespace MyCrm.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                 TempData[WarningMessage] = "اطلاعات وارد شده صحیح نمی باشد";
+                TempData[WarningMessage] = "اطلاعات وارد شده صحیح نمی باشد";
                 return View(orderViewModel);
             }
 
@@ -66,9 +65,8 @@ namespace MyCrm.Web.Controllers
             switch (result)
             {
                 case CreateOrderResult.Success:
-                     TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("FilterOrders");
-                    break;
                 case CreateOrderResult.Fail:
                     //TempData[Errormessage] = "عملیات با شکست مواجه شد";
                     break;
@@ -97,7 +95,7 @@ namespace MyCrm.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-             TempData[WarningMessage] = "اطلاعات وارد شده معتبر نمی باشد";
+                TempData[WarningMessage] = "اطلاعات وارد شده معتبر نمی باشد";
                 return View(orderViewModel);
 
             }
@@ -158,7 +156,7 @@ namespace MyCrm.Web.Controllers
             {
                 case AddOrderSelectMarketerResult.Success:
                     return new JsonResult(new { status = "Success" });
-               
+
                 case AddOrderSelectMarketerResult.Fail:
                     return new JsonResult(new { status = "Error" });
 
@@ -186,11 +184,11 @@ namespace MyCrm.Web.Controllers
             var result = await _orderService.DeleteOrderSelectedMarketer(orderId);
             if (result)
             {
-            //    TempData[ErrorMessage] = "shekast";
+                //    TempData[ErrorMessage] = "shekast";
 
                 return RedirectToAction("FilterOrderSelectedMarketer");
-                  }
-         //   TempData[SuccesMessage] = " Dorost";
+            }
+            //   TempData[SuccesMessage] = " Dorost";
             return RedirectToAction("FilterOrderSelectedMarketer");
 
 

@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace MyCrm.Domain.ViewModels.MarketingAction
 {
-    public class EditMarketingActionViewModel
-    {
+    //public class EditMarketingActionViewModel
+    //{
 
-        public long ActionId { get; set; }
-        public long CrmTaskId { get; set; }
-        public string Description { get; set; }
+    //    public long ActionId { get; set; }
+    //    public long CrmTaskId { get; set; }
+    //    public string Description { get; set; }
 
 
-    }
-    public enum EditMarketingActionResult
-    {
-        Success, Fail
-    }
+    //}
+    //public enum EditMarketingActionResult
+    //{
+    //    Success, Fail
+    //}
 
 }

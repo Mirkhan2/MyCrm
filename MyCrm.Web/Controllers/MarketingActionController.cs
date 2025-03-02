@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyCrm.Application.Interfaces;
-using MyCrm.Domain.ViewModels.MarketingAction;
+using MyCrm.Domains.ViewModels.MarketingAction;
 
 namespace MyCrm.Web.Controllers
 {
@@ -51,7 +51,6 @@ namespace MyCrm.Web.Controllers
                     TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                     break;
             }
-
 
             return View(actionViewModel);
         }
